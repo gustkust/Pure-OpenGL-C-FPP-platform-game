@@ -22,22 +22,41 @@ float SCR_HEIGHT = 768;
 camera myCam;
 
 
+bool w_pressed = false;
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+
     if (action == GLFW_PRESS) {
         if (key == GLFW_KEY_A) myCam.setSpeedLeft(0.06);
         if (key == GLFW_KEY_D) myCam.setSpeedRight(0.06);
-        if (key == GLFW_KEY_W) myCam.setSpeedForward(0.06);
+        if (key == GLFW_KEY_W) {
+            w_pressed = true;
+            myCam.setSpeedForward(0.06);
+        }
         if (key == GLFW_KEY_S) myCam.setSpeedBackward(0.06);
         if (key == GLFW_KEY_SPACE) myCam.jump(true);
         if (key == GLFW_KEY_C) myCam.newCrouch(true);
+        if (key == GLFW_KEY_LEFT_SHIFT) {
+            if (w_pressed) {
+                myCam.setSpeedForward(0.20);
+            }
+        }
     }
     if (action == GLFW_RELEASE) {
         if (key == GLFW_KEY_A) myCam.setSpeedLeft(0);
         if (key == GLFW_KEY_D) myCam.setSpeedRight(0);
-        if (key == GLFW_KEY_W) myCam.setSpeedForward(0);
+        if (key == GLFW_KEY_W)
+        {
+            w_pressed = false;
+            myCam.setSpeedForward(0);
+        }
         if (key == GLFW_KEY_S) myCam.setSpeedBackward(0);
         if (key == GLFW_KEY_SPACE) myCam.jump(false);
         if (key == GLFW_KEY_C) myCam.newCrouch(false);
+        if (key == GLFW_KEY_LEFT_SHIFT) {
+            if (w_pressed) {
+                myCam.setSpeedForward(0.06);
+            }
+        }
     }
 }
 
