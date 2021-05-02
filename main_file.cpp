@@ -22,19 +22,22 @@ camera myCam;
 
 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	if (action == GLFW_PRESS) {
-		if (key == GLFW_KEY_A) myCam.setSpeedLeft(0.06);
-		if (key == GLFW_KEY_D) myCam.setSpeedRight(0.06);
-		if (key == GLFW_KEY_W) myCam.setSpeedForward(0.06);
-		if (key == GLFW_KEY_S) myCam.setSpeedBackward(0.06);
-		if (key == GLFW_KEY_SPACE) myCam.newJump();
-	}
-	if (action == GLFW_RELEASE) {
-		if (key == GLFW_KEY_A) myCam.setSpeedLeft(0);
-		if (key == GLFW_KEY_D) myCam.setSpeedRight(0);
-		if (key == GLFW_KEY_W) myCam.setSpeedForward(0);
-		if (key == GLFW_KEY_S) myCam.setSpeedBackward(0);
-	}
+    if (action == GLFW_PRESS) {
+        if (key == GLFW_KEY_A) myCam.setSpeedLeft(0.06);
+        if (key == GLFW_KEY_D) myCam.setSpeedRight(0.06);
+        if (key == GLFW_KEY_W) myCam.setSpeedForward(0.06);
+        if (key == GLFW_KEY_S) myCam.setSpeedBackward(0.06);
+        if (key == GLFW_KEY_SPACE) myCam.jump(true);
+        if (key == GLFW_KEY_C) myCam.newCrouch(true);
+    }
+    if (action == GLFW_RELEASE) {
+        if (key == GLFW_KEY_A) myCam.setSpeedLeft(0);
+        if (key == GLFW_KEY_D) myCam.setSpeedRight(0);
+        if (key == GLFW_KEY_W) myCam.setSpeedForward(0);
+        if (key == GLFW_KEY_S) myCam.setSpeedBackward(0);
+        if (key == GLFW_KEY_SPACE) myCam.jump(false);
+        if (key == GLFW_KEY_C) myCam.newCrouch(false);
+    }
 }
 
 

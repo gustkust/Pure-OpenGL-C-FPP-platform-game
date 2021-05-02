@@ -6,13 +6,14 @@
 //		if (key == GLFW_KEY_D) myCam.setSpeedRight(0.06);
 //		if (key == GLFW_KEY_W) myCam.setSpeedForward(0.06);
 //		if (key == GLFW_KEY_S) myCam.setSpeedBackward(0.06);
-//		if (key == GLFW_KEY_SPACE) myCam.newJump();
+//		if (key == GLFW_KEY_SPACE) myCam.jump(true);
 //	}
 //	if (action == GLFW_RELEASE) {
 //		if (key == GLFW_KEY_A) myCam.setSpeedLeft(0);
 //		if (key == GLFW_KEY_D) myCam.setSpeedRight(0);
 //		if (key == GLFW_KEY_W) myCam.setSpeedForward(0);
 //		if (key == GLFW_KEY_S) myCam.setSpeedBackward(0);
+//		if (key == GLFW_KEY_SPACE) myCam.jump(false);
 //	}
 //}
 
@@ -40,6 +41,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "stdio.h"
+#include <iostream>
+using namespace std;
 
 
 class camera {
@@ -53,21 +56,27 @@ private:
 	float lastX = 800.0f / 2.0;
 	float lastY = 600.0 / 2.0;
 	float fov = 45.0f;
+	float cameraHeight = 2;
+
 	float sensitivity = 0.1f;
+
+	float gravitySpeed = -2.0f;
+	float jumpSpeed = 0;
+	float jumpHeight = 0;
+	bool jumpUp = false;
+
+	bool crouch;
 
 	float speedLeft = 0;
 	float speedRight = 0;
 	float speedForward = 0;
 	float speedBackward = 0;
 
-	float jumpHeight = 0;
-	bool jumpUp = false;
-	bool jumpDown = false;
-
 public:
 	void mouseMovement(float xPos, float yPos, bool firstMouse = false);
 	void positionChange();
-	void newJump();
+	void jump(bool keepJumping);
+	void newCrouch(bool keepCrouch);
 
 	void setSpeedLeft(float newValue);
 	void setSpeedRight(float newValue);

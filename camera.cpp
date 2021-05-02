@@ -39,22 +39,27 @@ void camera::positionChange()
 	pos -= glm::normalize(glm::cross(front, up)) * speedLeft;
 	pos += glm::normalize(glm::cross(front, up)) * speedRight;
 
-	if (jumpUp && jumpHeight < 1) {
-		jumpHeight += 0.04;
-		if (jumpHeight >= 1) {
-			jumpUp = false;
-			jumpDown = true;
-		}
-	}
-	else if (jumpDown && jumpHeight > 0) {
-		jumpHeight -= 0.04;
-		if (jumpHeight <= 0) jumpDown = false;
+	jumpHeight += 0.008 * jumpSpeed;
+	jumpSpeed += 0.008 * gravitySpeed;
+	if (jumpHeight <= 0) {
+		jumpHeight = 0;
+		jumpUp = false;
 	}
 }
 
 
-void camera::newJump() {
-	if (!jumpDown) jumpUp = true;
+void camera::jump(bool keepJumping) {
+	if (keepJumping && !jumpUp) {
+		jumpSpeed = 7.0f;
+		jumpUp = true;
+	}
+	else if (!keepJumping) jumpSpeed = 0;
+}
+
+
+void camera::newCrouch(bool keepCrouch) {
+	if (keepCrouch) crouch = true;
+	else if (!keepCrouch && crouch) crouch = false;
 }
 
 
@@ -94,10 +99,12 @@ void camera::changeSensitivity(float newValue) {
 
 
 glm::mat4 camera::getV() {
-	//return glm::lookAt(pos, pos + front, up);
+	// return glm::lookAt(pos, pos + front, up);
 
 	// To get FPS camera use instead:
-	return glm::lookAt(glm::vec3(pos.x, 2 + jumpHeight, pos.z), glm::vec3(pos.x, 2 + jumpHeight, pos.z) + front, up);
+	cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
+	if (!crouch) return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z) + front, up);
+	return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z) + front, up);
 }
 
 
