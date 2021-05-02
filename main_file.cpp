@@ -12,6 +12,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+// siema siema
 
 // window size
 float SCR_WIDTH = 1024;
