@@ -74,7 +74,7 @@ private:
 
 public:
 	void mouseMovement(float xPos, float yPos, bool firstMouse = false);
-	void positionChange();
+	void positionChange(float deltaTime);
 	void jump(bool keepJumping);
 	void newCrouch(bool keepCrouch);
 

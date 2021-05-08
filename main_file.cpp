@@ -12,11 +12,14 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-// siema siema
 
 // window size
 float SCR_WIDTH = 1024;
 float SCR_HEIGHT = 768;
+
+// time
+float lastTime = 0.0;
+float deltaTime = 0.0;
 
 // camera
 camera myCam;
@@ -26,18 +29,18 @@ bool w_pressed = false;
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 
     if (action == GLFW_PRESS) {
-        if (key == GLFW_KEY_A) myCam.setSpeedLeft(0.06);
-        if (key == GLFW_KEY_D) myCam.setSpeedRight(0.06);
+        if (key == GLFW_KEY_A) myCam.setSpeedLeft(15 * deltaTime);
+        if (key == GLFW_KEY_D) myCam.setSpeedRight(15 * deltaTime);
         if (key == GLFW_KEY_W) {
             w_pressed = true;
-            myCam.setSpeedForward(0.06);
+            myCam.setSpeedForward(15 * deltaTime);
         }
-        if (key == GLFW_KEY_S) myCam.setSpeedBackward(0.06);
+        if (key == GLFW_KEY_S) myCam.setSpeedBackward(15 * deltaTime);
         if (key == GLFW_KEY_SPACE) myCam.jump(true);
         if (key == GLFW_KEY_C) myCam.newCrouch(true);
         if (key == GLFW_KEY_LEFT_SHIFT) {
             if (w_pressed) {
-                myCam.setSpeedForward(0.20);
+                myCam.setSpeedForward(3 * 15 * deltaTime);
             }
         }
     }
@@ -54,7 +57,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
         if (key == GLFW_KEY_C) myCam.newCrouch(false);
         if (key == GLFW_KEY_LEFT_SHIFT) {
             if (w_pressed) {
-                myCam.setSpeedForward(0.06);
+                myCam.setSpeedForward(15 * deltaTime);
             }
         }
     }
@@ -76,10 +79,10 @@ GLFWwindow* GLFWsetup() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     //creating window
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Jumping on roofs!", NULL, NULL);
     if (window == NULL)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        std::cout << "Error creating GLFW window" << std::endl;
         glfwTerminate();
     }
 
@@ -124,12 +127,16 @@ int main() {
 
     // main loop
     while (!glfwWindowShouldClose(window)) {
+        float thisTime = glfwGetTime();
+        deltaTime = thisTime - lastTime;
+        lastTime = thisTime;
+
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         ourShader.use();
 
-        myCam.positionChange();
+        myCam.positionChange(deltaTime);
 
         // model, view and projection matrices setup
         glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 50.0f);

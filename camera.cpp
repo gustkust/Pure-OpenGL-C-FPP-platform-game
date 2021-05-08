@@ -32,15 +32,15 @@ void camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
 }
 
 
-void camera::positionChange()
+void camera::positionChange(float deltaTime)
 {
 	pos += speedForward * front;
 	pos -= speedBackward * front;
 	pos -= glm::normalize(glm::cross(front, up)) * speedLeft;
 	pos += glm::normalize(glm::cross(front, up)) * speedRight;
 
-	jumpHeight += 0.008 * jumpSpeed;
-	jumpSpeed += 0.008 * gravitySpeed;
+	jumpHeight += 5 * deltaTime * jumpSpeed;
+	jumpSpeed += 5 * deltaTime * gravitySpeed;
 	if (jumpHeight <= 0) {
 		jumpHeight = 0;
 		jumpUp = false;
@@ -50,7 +50,7 @@ void camera::positionChange()
 
 void camera::jump(bool keepJumping) {
 	if (keepJumping && !jumpUp) {
-		jumpSpeed = 7.0f;
+		jumpSpeed = 7.0;
 		jumpUp = true;
 	}
 	else if (!keepJumping) jumpSpeed = 0;
