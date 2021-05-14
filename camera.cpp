@@ -102,7 +102,7 @@ glm::mat4 camera::getV() {
 	// return glm::lookAt(pos, pos + front, up);
 
 	// To get FPS camera use instead:
-	cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
+	//cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
 	if (!crouch) return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z) + front, up);
 	return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z) + front, up);
 }
@@ -120,4 +120,8 @@ camera::camera(glm::vec3 newPos, glm::vec3 newFront, glm::vec3 newUp,
 	sensitivity = newSensitivity;
 	lastX = newLastX;
 	lastY = newLastY;
+}
+
+glm::vec3 camera::getPos() {
+	return pos;
 }

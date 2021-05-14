@@ -85,6 +85,8 @@ public:
 	void setLastX(float newValue);
 	void setLastY(float newValue);
 
+	glm::vec3 getPos();
+
 	void changeSensitivity(float newValue);
 
 	glm::mat4 getV();

@@ -8,6 +8,7 @@
 #include "model.h"
 #include "skybox.h"
 #include <iostream>
+#include "collision.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -170,9 +171,12 @@ int main() {
         // crate 3 x 3 x 3
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-20.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+        model = glm::scale(model, glm::vec3(3.0f, 1.0f, 3.0f));
         ourShader.setMat4("model", model);
         crate.Draw(ourShader);
+
+        Collision box1(glm::vec3(-20.0f, 0.0f, 0.0f), glm::vec3(3.0f, 1.0f, 3.0f));
+        cout << box1.checkCollision(myCam.getPos()) << " " << "\n";
 
         //skybox
         glDepthFunc(GL_LEQUAL);
