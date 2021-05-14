@@ -120,6 +120,7 @@ int main() {
     Model backpack("resources/models/backpack/backpack.obj");
     Model skull("resources/models/skull/12140_Skull_v3_L2.obj");
     Model tree("resources/models/tree/Tree.obj");
+    Model crate("resources/models/Crate/Crate1.obj");
 
     // load skybox
     skybox mySkybox;
@@ -165,6 +166,13 @@ int main() {
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
         ourShader.setMat4("model", model);
         tree.Draw(ourShader);
+
+        // crate 3 x 3 x 3
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-20.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+        ourShader.setMat4("model", model);
+        crate.Draw(ourShader);
 
         //skybox
         glDepthFunc(GL_LEQUAL);
