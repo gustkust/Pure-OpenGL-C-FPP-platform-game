@@ -13,7 +13,7 @@ Collision::Collision(glm::vec3 position, glm::vec3 size) {
 
 
 bool Collision::checkCollision(glm::vec3 cameraPosition) {
-	if ((cameraPosition[0] >= sector[0][0] && cameraPosition[0] <= sector[0][1]) && 
+	if ((cameraPosition[0] >= sector[0][0] && cameraPosition[0] <= sector[0][1]) &&
 		(cameraPosition[2] >= sector[2][0] && cameraPosition[2] <= sector[2][1])) {
 		return true;
 	}

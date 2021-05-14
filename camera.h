@@ -42,6 +42,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "stdio.h"
 #include <iostream>
+#include "collision.h"
 using namespace std;
 
 
@@ -56,7 +57,7 @@ private:
 	float lastX = 800.0f / 2.0;
 	float lastY = 600.0 / 2.0;
 	float fov = 45.0f;
-	float cameraHeight = 2;
+	float cameraHeight = 5;
 
 	float sensitivity = 0.1f;
 
@@ -74,7 +75,7 @@ private:
 
 public:
 	void mouseMovement(float xPos, float yPos, bool firstMouse = false);
-	void positionChange(float deltaTime);
+	void positionChange(float deltaTime, Collision box);
 	void jump(bool keepJumping);
 	void newCrouch(bool keepCrouch);
 

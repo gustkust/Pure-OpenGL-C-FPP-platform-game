@@ -138,7 +138,10 @@ int main() {
 
         ourShader.use();
 
-        myCam.positionChange(deltaTime);
+        Collision box1(glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(30.0f, 1.0f, 30.0f));
+        cout << box1.checkCollision(myCam.getPos()) << " " << "\n";
+
+        myCam.positionChange(deltaTime, box1);
 
         // model, view and projection matrices setup
         glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 50.0f);
@@ -170,13 +173,12 @@ int main() {
 
         // crate 3 x 3 x 3
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-20.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(3.0f, 1.0f, 3.0f));
+        model = glm::translate(model, glm::vec3(0.0f, -10.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(30.0f, 1.0f, 30.0f));
         ourShader.setMat4("model", model);
         crate.Draw(ourShader);
 
-        Collision box1(glm::vec3(-20.0f, 0.0f, 0.0f), glm::vec3(3.0f, 1.0f, 3.0f));
-        cout << box1.checkCollision(myCam.getPos()) << " " << "\n";
+        
 
         //skybox
         glDepthFunc(GL_LEQUAL);
