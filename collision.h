@@ -9,8 +9,10 @@
 
 class Collision {
 public:
-	Collision(glm::vec3 position, glm::vec3 size);
+	Collision();
+	Collision(glm::vec3 position, glm::vec3 size, glm::vec3 posChange = glm::vec3(0.0f, 0.0f, 0.0f));
 	float sector[3][2];
 	bool checkCollision(glm::vec3 cameraPosition);
+	glm::vec3 posChange;
 };
 #endif

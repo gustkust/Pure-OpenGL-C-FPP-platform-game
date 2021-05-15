@@ -127,8 +127,24 @@ int main() {
     skybox mySkybox;
     unsigned int cubemapTexture = mySkybox.load();
 
+    // two static boxes
+    Collision box1(glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(10.0f, 1.0f, 10.0f));
+    Collision box3(glm::vec3(0.0f, -10.0f, -60.0f), glm::vec3(10.0f, 1.0f, 10.0f));
+    
+    Collision boxes[3];
+    boxes[0] = box1;
+    boxes[2] = box3;
+
+    float boxPos = 0.0f; // addistional possition of current box
+    float boxPosChange = 0.05f; // change of boxPos per frame
+    float boxPosRange = 30.0f; // range of boxPos
     // main loop
     while (!glfwWindowShouldClose(window)) {
+
+        // moving box
+        Collision box2(glm::vec3(boxPos, -10.0f, -30.0f), glm::vec3(10.0f, 1.0f, 10.0f), glm::vec3(boxPosChange, 0.0f, 0.0f));
+        boxes[1] = box2;
+
         float thisTime = glfwGetTime();
         deltaTime = thisTime - lastTime;
         lastTime = thisTime;
@@ -138,10 +154,7 @@ int main() {
 
         ourShader.use();
 
-        Collision box1(glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(30.0f, 1.0f, 30.0f));
-        cout << box1.checkCollision(myCam.getPos()) << " " << "\n";
-
-        myCam.positionChange(deltaTime, box1);
+        myCam.positionChange(deltaTime, boxes);
 
         // model, view and projection matrices setup
         glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 3000.0f);
@@ -171,10 +184,25 @@ int main() {
         ourShader.setMat4("model", model);
         tree.Draw(ourShader);
 
-        // crate 3 x 3 x 3
+        // boxes
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -10.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(30.0f, 1.0f, 30.0f));
+        model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
+        ourShader.setMat4("model", model);
+        crate.Draw(ourShader);
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(boxPos, -10.0f, -30.0f)); // moving box
+        model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
+        ourShader.setMat4("model", model);
+        crate.Draw(ourShader);
+        // update boxPos
+        if (boxPos >= boxPosRange || boxPos <= -boxPosRange) boxPosChange *= -1;
+        boxPos += boxPosChange;
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -10.0f, -60.0f));
+        model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
         ourShader.setMat4("model", model);
         crate.Draw(ourShader);
 
