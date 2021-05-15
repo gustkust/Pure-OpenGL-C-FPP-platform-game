@@ -43,7 +43,7 @@ void camera::positionChange(float deltaTime, Collision boxes[3])
 	jumpSpeed += 5 * deltaTime * gravitySpeed;
 	for (int i = 0; i < 3; i++) {
 		if (boxes[i].checkCollision(pos)) {
-			if (jumpHeight <= boxes[i].sector[1][1] && jumpHeight >= boxes[i].sector[1][1] - 5) {
+			if (jumpHeight <= boxes[i].sector[1][1] && jumpHeight >= boxes[i].sector[1][1] - 15) {
 				jumpHeight = boxes[i].sector[1][1];
 				jumpUp = false;
 				pos += boxes[i].posChange;
