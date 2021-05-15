@@ -144,7 +144,7 @@ int main() {
         myCam.positionChange(deltaTime, box1);
 
         // model, view and projection matrices setup
-        glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 50.0f);
+        glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 3000.0f);
         glm::mat4 view = myCam.getV();
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
