@@ -123,6 +123,7 @@ int main() {
     Model tree("resources/models/tree/Tree.obj");
     Model crate("resources/models/Crate/Crate1.obj");
     Model building("resources/models/building/building.obj");
+    Model vents("resources/models/vents/3d-model.obj");
 
     // load skybox
     skybox mySkybox;
@@ -185,6 +186,13 @@ int main() {
         model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
         ourShader.setMat4("model", model);
         building.Draw(ourShader);
+
+        // vents
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -3.0f, -50.0f));
+        model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f));
+        ourShader.setMat4("model", model);
+        vents.Draw(ourShader);
 
         // tree
         model = glm::mat4(1.0f);
