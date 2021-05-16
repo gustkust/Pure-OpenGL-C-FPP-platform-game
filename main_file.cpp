@@ -124,6 +124,7 @@ int main() {
     Model crate("resources/models/Crate/Crate1.obj");
     Model building("resources/models/building/building.obj");
     Model vents("resources/models/vents/3d-model.obj");
+    Model solar_panel("resources/models/solar_panel/3d-model.obj");
 
     // load skybox
     skybox mySkybox;
@@ -193,6 +194,13 @@ int main() {
         model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f));
         ourShader.setMat4("model", model);
         vents.Draw(ourShader);
+
+        // solar panel
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(15.0f, -10.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+        ourShader.setMat4("model", model);
+        solar_panel.Draw(ourShader);
 
         // tree
         model = glm::mat4(1.0f);
