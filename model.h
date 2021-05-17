@@ -24,6 +24,7 @@ using namespace std;
 
 class Model {
 public:
+    Model();
     // all textures already loaded
     vector<Texture> textures_loaded;
 

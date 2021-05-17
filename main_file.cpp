@@ -9,6 +9,7 @@
 #include "skybox.h"
 #include <iostream>
 #include "collision.h"
+#include "building.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -122,9 +123,10 @@ int main() {
     Model skull("resources/models/skull/12140_Skull_v3_L2.obj");
     Model tree("resources/models/tree/Tree.obj");
     Model crate("resources/models/Crate/Crate1.obj");
-    Model building("resources/models/building/building.obj");
+    //Model building("resources/models/building/building.obj");
     Model vents("resources/models/vents/3d-model.obj");
     Model solar_panel("resources/models/solar_panel/3d-model.obj");
+    Building building(glm::vec3(240.0f, -215.0f, 0.0f));
 
     // load skybox
     skybox mySkybox;
@@ -134,9 +136,10 @@ int main() {
     Collision box1(glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(10.0f, 1.0f, 10.0f));
     Collision box3(glm::vec3(0.0f, -10.0f, -60.0f), glm::vec3(10.0f, 1.0f, 10.0f));
     
-    Collision boxes[3];
+    Collision boxes[4];
     boxes[0] = box1;
     boxes[2] = box3;
+    boxes[3] = building.building_col;
 
     float boxPos = 0.0f; // additional possition of current box
     float boxPosChange = 0.05f; // change of boxPos per frame
@@ -181,12 +184,13 @@ int main() {
         skull.Draw(ourShader);
 
         //building
-        model = glm::mat4(1.0f);
+        building.draw(ourShader);
+        /*model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(240.0f, -215.0f, 0.0f));
         model = glm::scale(model, glm::vec3(200.0f, 200.0f, 200.0f));
         model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
         ourShader.setMat4("model", model);
-        building.Draw(ourShader);
+        building.Draw(ourShader);*/
 
         // vents
         model = glm::mat4(1.0f);
