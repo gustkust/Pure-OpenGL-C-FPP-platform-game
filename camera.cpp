@@ -104,12 +104,11 @@ void camera::changeSensitivity(float newValue) {
 
 
 glm::mat4 camera::getV() {
-	// return glm::lookAt(pos, pos + front, up);
-
-	// To get FPS camera use instead:
 	cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
-	if (!crouch) return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z) + front, up);
-	return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z) + front, up);
+	// To get FPS camera use instead:
+	return glm::lookAt(pos, pos + front, up);
+	//if (!crouch) return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z) + front, up);
+	//return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z) + front, up);
 }
 
 
