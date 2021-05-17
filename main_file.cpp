@@ -138,7 +138,7 @@ int main() {
     boxes[0] = box1;
     boxes[2] = box3;
 
-    float boxPos = 0.0f; // addistional possition of current box
+    float boxPos = 0.0f; // additional possition of current box
     float boxPosChange = 0.05f; // change of boxPos per frame
     float boxPosRange = 30.0f; // range of boxPos
     // main loop
