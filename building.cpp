@@ -106,31 +106,25 @@ void Building::draw(Shader ourShader) {
 
 		// sculpture
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, pos - glm::vec3(0.0f, 200.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f));
+		model = glm::translate(model, pos + glm::vec3(0.0f, 200.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
 		ourShader.setMat4("model", model);
 		model2.Draw(ourShader);
 
-		// palm
+		// palms
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, pos - size + glm::vec3(0.0f, 400.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		model = glm::translate(model, pos - size + glm::vec3(15.0f, 400.0f, 15.0f)); // -85,-85
+		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
+		ourShader.setMat4("model", model);
+		model3.Draw(ourShader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, pos + size + glm::vec3(-15.0f, 0.0f, -15.0f)); // 85, 85
+		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
 		ourShader.setMat4("model", model);
 		model3.Draw(ourShader);
 
 		// plants
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, pos - size + glm::vec3(15.0f, 400.0f, 15.0f)); // -85,-85
-		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
-		ourShader.setMat4("model", model);
-		model4.Draw(ourShader);
-
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, pos + size + glm::vec3(-15.0f, 0.0f, -15.0f)); // 85, 85
-		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
-		ourShader.setMat4("model", model);
-		model4.Draw(ourShader);
-
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(-size[2]+15.0f, 200.0f, size[2]-15.0f));
 		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
