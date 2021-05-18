@@ -32,7 +32,7 @@ void camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
 }
 
 
-void camera::positionChange(float deltaTime, Collision boxes[5])
+void camera::positionChange(float deltaTime, Collision boxes[6])
 {
 	pos += speedForward * front;
 	pos -= speedBackward * front;
@@ -41,7 +41,7 @@ void camera::positionChange(float deltaTime, Collision boxes[5])
 
 	jumpHeight += 5 * deltaTime * jumpSpeed;
 	jumpSpeed += 5 * deltaTime * gravitySpeed;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 6; i++) {
 		if (boxes[i].checkCollision(pos)) {
 			if (jumpHeight <= boxes[i].sector[1][1] && jumpHeight >= boxes[i].sector[1][1] - 15) {
 				jumpHeight = boxes[i].sector[1][1];
@@ -104,7 +104,7 @@ void camera::changeSensitivity(float newValue) {
 
 
 glm::mat4 camera::getV() {
-	//cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
+	cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
 	//return glm::lookAt(pos, pos + front, up);
 	// To get FPS camera use instead:
 	if (!crouch) return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z) + front, up);

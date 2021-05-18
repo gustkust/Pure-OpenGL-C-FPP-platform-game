@@ -122,8 +122,10 @@ int main() {
     Model crate("resources/models/Crate/Crate1.obj");
     Model sculpture("resources/models/Sculpture/Musa_highpoly.obj");
     Model palm("resources/models/Palm/kkviz dypsis lutescens_01.obj");
+    Model plant("resources/models/Plant/uploads_files_2749739_A1.obj");
     Building building1(glm::vec3(150.0f, -215.0f, 0.0f), 1);
     Building building2(glm::vec3(150.0f, -245.0f, 120.0f), 2);
+    Building building3(glm::vec3(0.0f, -215.0f, 0.0f), 3);
 
 
     // load skybox
@@ -134,11 +136,12 @@ int main() {
     Collision box1(glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(10.0f, 1.0f, 10.0f));
     Collision box3(glm::vec3(0.0f, -10.0f, -60.0f), glm::vec3(10.0f, 1.0f, 10.0f));
     
-    Collision boxes[5];
+    Collision boxes[6];
     boxes[0] = box1;
     boxes[2] = box3;
     boxes[3] = building1.building_col;
     boxes[4] = building2.building_col;
+    boxes[5] = building3.building_col;
 
     float boxPos = 0.0f; // additional possition of current box
     float boxPosChange = 0.15f; // change of boxPos per frame
@@ -172,6 +175,7 @@ int main() {
         //building
         building1.draw(ourShader);
         building2.draw(ourShader);
+        building3.draw(ourShader);
 
         // boxes
         model = glm::mat4(1.0f);
@@ -179,20 +183,6 @@ int main() {
         model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
         ourShader.setMat4("model", model);
         crate.Draw(ourShader);
-
-        // sculpture
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(5.0f, 2.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-        ourShader.setMat4("model", model);
-        sculpture.Draw(ourShader);
-
-        // palm
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-5.0f, 2.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-        ourShader.setMat4("model", model);
-        palm.Draw(ourShader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(boxPos, -10.0f, -30.0f)); // moving box
