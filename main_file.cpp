@@ -120,13 +120,11 @@ int main() {
 
     // load model and create model object
     Model crate("resources/models/Crate/Crate1.obj");
-    Model dumpster("resources/models/Dumpster/uploads_files_2257883_dumpster_obj.obj");
-    Model bucket("resources/models/Bucket/Bucket3.obj");
-    Model arm("resources/models/Arm/Robotic Arm.obj");
 
     Building building1(glm::vec3(150.0f, -215.0f, 0.0f), 1);
     Building building2(glm::vec3(150.0f, -245.0f, 120.0f), 2);
-    Building building3(glm::vec3(0.0f, -215.0f, 0.0f), 3);
+    Building building3(glm::vec3(0.0f, -215.0f, 120.0f), 3);
+    Building building4(glm::vec3(0.0f, -215.0f, 0.0f), 4);
 
 
     // load skybox
@@ -137,12 +135,13 @@ int main() {
     Collision box1(glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(10.0f, 1.0f, 10.0f));
     Collision box3(glm::vec3(0.0f, -10.0f, -60.0f), glm::vec3(10.0f, 1.0f, 10.0f));
     
-    Collision boxes[6];
+    Collision boxes[7];
     boxes[0] = box1;
     boxes[2] = box3;
     boxes[3] = building1.building_col;
     boxes[4] = building2.building_col;
     boxes[5] = building3.building_col;
+    boxes[6] = building4.building_col;
 
     float boxPos = 0.0f; // additional possition of current box
     float boxPosChange = 0.15f; // change of boxPos per frame
@@ -177,27 +176,8 @@ int main() {
         building1.draw(ourShader);
         building2.draw(ourShader);
         building3.draw(ourShader);
+        building4.draw(ourShader);
 
-        // dumpster
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(15.0f, -10.0f, 15.0f));
-        model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
-        ourShader.setMat4("model", model);
-        dumpster.Draw(ourShader);
-
-        // bucket
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-15.0f, -10.0f, 15.0f));
-        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-        ourShader.setMat4("model", model);
-        bucket.Draw(ourShader);
-
-        // arm
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-15.0f, -10.0f, -15.0f));
-        model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
-        ourShader.setMat4("model", model);
-        arm.Draw(ourShader);
 
         // boxes
         model = glm::mat4(1.0f);

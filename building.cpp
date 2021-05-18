@@ -32,8 +32,16 @@ Building::Building(glm::vec3 pos, int type, glm::vec3 size) {
 		Model tmp4("resources/models/Plant/uploads_files_2749739_A1.obj");
 		this->model4 = tmp4;
 	}
-		
-		 
+	else if (type == 4) {
+		Model tmp1("resources/models/building/building.obj");
+		this->model1 = tmp1;
+		Model tmp2("resources/models/Dumpster/uploads_files_2257883_dumpster_obj.obj");
+		this->model2 = tmp2;
+		Model tmp3("resources/models/Bucket/Bucket3.obj");
+		this->model3 = tmp3;
+		Model tmp4("resources/models/Arm/Robotic Arm.obj");
+		this->model4 = tmp4;
+	}	 
 }
 
 void Building::draw(Shader ourShader) {
@@ -134,6 +142,33 @@ void Building::draw(Shader ourShader) {
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(size[2] - 15.0f, 200.0f, -size[2] + 15.0f));
 		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
+		ourShader.setMat4("model", model);
+		model4.Draw(ourShader);
+	}
+	else if (type == 4) {
+		// building
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, pos);
+		model = glm::scale(model, size);
+		model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+		ourShader.setMat4("model", model);
+		model1.Draw(ourShader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, pos + glm::vec3(size[2] - 15.0f, 200.0f, -size[2] + 15.0f));
+		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
+		ourShader.setMat4("model", model);
+		model2.Draw(ourShader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, pos + glm::vec3(size[2] - 25.0f, 201.0f, -size[2] + 15.0f));
+		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
+		ourShader.setMat4("model", model);
+		model3.Draw(ourShader);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, pos + glm::vec3(-size[2] + 15.0f, 201.0f, size[2] - 15.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
 		ourShader.setMat4("model", model);
 		model4.Draw(ourShader);
 	}

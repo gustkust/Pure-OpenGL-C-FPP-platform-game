@@ -65,6 +65,7 @@ private:
 	float jumpSpeed = 0;
 	float jumpHeight = 0;
 	bool jumpUp = false;
+	bool fallDown = false;
 
 	bool crouch;
 

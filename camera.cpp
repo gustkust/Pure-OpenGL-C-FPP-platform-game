@@ -32,16 +32,21 @@ void camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
 }
 
 
-void camera::positionChange(float deltaTime, Collision boxes[6])
+void camera::positionChange(float deltaTime, Collision boxes[7])
 {
 	pos += speedForward * front;
 	pos -= speedBackward * front;
 	pos -= glm::normalize(glm::cross(front, up)) * speedLeft;
 	pos += glm::normalize(glm::cross(front, up)) * speedRight;
 
+	if (jumpHeight <= -1000.0f) {
+		pos = glm::vec3(0.0f, 0.0f, 3.0f);
+		jumpHeight = 0.0f;
+	}
+
 	jumpHeight += 5 * deltaTime * jumpSpeed;
 	jumpSpeed += 5 * deltaTime * gravitySpeed;
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 7; i++) {
 		if (boxes[i].checkCollision(pos)) {
 			if (jumpHeight <= boxes[i].sector[1][1] && jumpHeight >= boxes[i].sector[1][1] - 15) {
 				jumpHeight = boxes[i].sector[1][1];
@@ -57,8 +62,12 @@ void camera::jump(bool keepJumping) {
 	if (keepJumping && !jumpUp) {
 		jumpSpeed = 7.0;
 		jumpUp = true;
+		fallDown = false;
 	}
-	else if (!keepJumping) jumpSpeed = 0;
+	else if (!keepJumping && !fallDown) {
+		jumpSpeed = 0;
+		fallDown = true;
+	}
 }
 
 
