@@ -120,6 +120,8 @@ int main() {
 
     // load model and create model object
     Model crate("resources/models/Crate/Crate1.obj");
+    Model sculpture("resources/models/Sculpture/Musa_highpoly.obj");
+    Model palm("resources/models/Palm/kkviz dypsis lutescens_01.obj");
     Building building1(glm::vec3(150.0f, -215.0f, 0.0f), 1);
     Building building2(glm::vec3(150.0f, -245.0f, 120.0f), 2);
 
@@ -139,8 +141,8 @@ int main() {
     boxes[4] = building2.building_col;
 
     float boxPos = 0.0f; // additional possition of current box
-    float boxPosChange = 0.01f; // change of boxPos per frame
-    float boxPosRange = 30.0f; // range of boxPos
+    float boxPosChange = 0.15f; // change of boxPos per frame
+    float boxPosRange = 80.0f; // range of boxPos
     // main loop
     while (!glfwWindowShouldClose(window)) {
 
@@ -177,6 +179,20 @@ int main() {
         model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
         ourShader.setMat4("model", model);
         crate.Draw(ourShader);
+
+        // sculpture
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(5.0f, 2.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+        ourShader.setMat4("model", model);
+        sculpture.Draw(ourShader);
+
+        // palm
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-5.0f, 2.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+        ourShader.setMat4("model", model);
+        palm.Draw(ourShader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(boxPos, -10.0f, -30.0f)); // moving box

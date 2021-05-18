@@ -1,0 +1,81 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 19.04.2021 11:03:47
+
+newmtl kkviz_dypsis_lutescens_01_stem1
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5000 0.5000 0.5000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka kkviz dypsis lutescens stem_01 alb.jpg
+	map_Kd kkviz dypsis lutescens stem_01 alb.jpg
+	map_bump kkviz dypsis lutescens stem_01 nrm.jpg
+	bump kkviz dypsis lutescens stem_01 nrm.jpg
+
+newmtl kkviz_dypsis_lutescens_01_stem2
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5000 0.5000 0.5000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka kkviz dypsis lutescens stem_02 alb.jpg
+	map_Kd kkviz dypsis lutescens stem_02 alb.jpg
+	map_bump kkviz dypsis lutescens stem_02 nrm.jpg
+	bump kkviz dypsis lutescens stem_02 nrm.jpg
+
+newmtl kkviz_dypsis_lutescens_01_leaves_F
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5000 0.5000 0.5000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka kkviz dypsis lutescens leaves_01 alb.jpg
+	map_Kd kkviz dypsis lutescens leaves_01 alb.jpg
+	map_d kkviz dypsis lutescens leaves_01 opa.jpg
+	map_bump kkviz dypsis lutescens leaves_01 nrm.jpg
+	bump kkviz dypsis lutescens leaves_01 nrm.jpg
+
+newmtl kkviz_soil_01
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5000 0.5000 0.5000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka kkviz soil 01_alb 01.jpeg
+	map_Kd kkviz soil 01_alb 01.jpeg
+	map_bump kkviz soil 01_nrm.jpg
+	bump kkviz soil 01_nrm.jpg
+
+newmtl kkviz_pottery_01
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.0392 0.0392 0.0392
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_bump kkviz noise_01.jpg
+	bump kkviz noise_01.jpg
