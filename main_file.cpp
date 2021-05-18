@@ -122,6 +122,7 @@ int main() {
     Model crate("resources/models/Crate/Crate1.obj");
     Model dumpster("resources/models/Dumpster/uploads_files_2257883_dumpster_obj.obj");
     Model bucket("resources/models/Bucket/Bucket3.obj");
+    Model arm("resources/models/Arm/Robotic Arm.obj");
 
     Building building1(glm::vec3(150.0f, -215.0f, 0.0f), 1);
     Building building2(glm::vec3(150.0f, -245.0f, 120.0f), 2);
@@ -190,6 +191,13 @@ int main() {
         model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
         ourShader.setMat4("model", model);
         bucket.Draw(ourShader);
+
+        // arm
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-15.0f, -10.0f, -15.0f));
+        model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+        ourShader.setMat4("model", model);
+        arm.Draw(ourShader);
 
         // boxes
         model = glm::mat4(1.0f);
