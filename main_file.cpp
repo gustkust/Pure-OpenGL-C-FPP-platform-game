@@ -120,9 +120,9 @@ int main() {
 
     // load model and create model object
     Model crate("resources/models/Crate/Crate1.obj");
-    Model sculpture("resources/models/Sculpture/Musa_highpoly.obj");
-    Model palm("resources/models/Palm/kkviz dypsis lutescens_01.obj");
-    Model plant("resources/models/Plant/uploads_files_2749739_A1.obj");
+    Model dumpster("resources/models/Dumpster/uploads_files_2257883_dumpster_obj.obj");
+    Model bucket("resources/models/Bucket/Bucket3.obj");
+
     Building building1(glm::vec3(150.0f, -215.0f, 0.0f), 1);
     Building building2(glm::vec3(150.0f, -245.0f, 120.0f), 2);
     Building building3(glm::vec3(0.0f, -215.0f, 0.0f), 3);
@@ -176,6 +176,20 @@ int main() {
         building1.draw(ourShader);
         building2.draw(ourShader);
         building3.draw(ourShader);
+
+        // dumpster
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(15.0f, -10.0f, 15.0f));
+        model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+        ourShader.setMat4("model", model);
+        dumpster.Draw(ourShader);
+
+        // bucket
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-15.0f, -10.0f, 15.0f));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        ourShader.setMat4("model", model);
+        bucket.Draw(ourShader);
 
         // boxes
         model = glm::mat4(1.0f);
