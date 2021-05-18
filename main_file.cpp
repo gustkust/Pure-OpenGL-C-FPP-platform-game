@@ -119,16 +119,10 @@ int main() {
     Shader skyboxShader("skybox.vs", "skybox.fs");
 
     // load model and create model object
-    Model backpack("resources/models/backpack/backpack.obj");
-    Model skull("resources/models/skull/12140_Skull_v3_L2.obj");
-    Model tree("resources/models/tree/Tree.obj");
     Model crate("resources/models/Crate/Crate1.obj");
-    //Model building("resources/models/building/building.obj");
-    Model vents("resources/models/vents/3d-model.obj");
-    Model solar_panel("resources/models/solar_panel/3d-model.obj");
-    Model helipad("resources/models/helipad/3d-model.obj");
-    Model helicopter("resources/models/helicopter/uploads_files_2739645_HelicopterOBJ.obj");
-    Building building(glm::vec3(150.0f, -215.0f, 0.0f));
+    Building building1(glm::vec3(150.0f, -215.0f, 0.0f), 1);
+    Building building2(glm::vec3(150.0f, -245.0f, 120.0f), 2);
+
 
     // load skybox
     skybox mySkybox;
@@ -138,13 +132,14 @@ int main() {
     Collision box1(glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(10.0f, 1.0f, 10.0f));
     Collision box3(glm::vec3(0.0f, -10.0f, -60.0f), glm::vec3(10.0f, 1.0f, 10.0f));
     
-    Collision boxes[4];
+    Collision boxes[5];
     boxes[0] = box1;
     boxes[2] = box3;
-    boxes[3] = building.building_col;
+    boxes[3] = building1.building_col;
+    boxes[4] = building2.building_col;
 
     float boxPos = 0.0f; // additional possition of current box
-    float boxPosChange = 0.05f; // change of boxPos per frame
+    float boxPosChange = 0.01f; // change of boxPos per frame
     float boxPosRange = 30.0f; // range of boxPos
     // main loop
     while (!glfwWindowShouldClose(window)) {
@@ -170,50 +165,11 @@ int main() {
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
         glm::mat4 model = glm::mat4(1.0f);
-        
-        // backpack
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-        ourShader.setMat4("model", model);
-        backpack.Draw(ourShader);
-
-        // skull
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(10.0f, 0.0f, 10.0f));
-        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-        model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-        ourShader.setMat4("model", model);
-        skull.Draw(ourShader);
+    
 
         //building
-        building.draw(ourShader);
-        /*model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(240.0f, -215.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(200.0f, 200.0f, 200.0f));
-        model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-        ourShader.setMat4("model", model);
-        building.Draw(ourShader);*/
-
-        // tree
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-10.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-        ourShader.setMat4("model", model);
-        tree.Draw(ourShader);
-
-        // helipad
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(50.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-        ourShader.setMat4("model", model);
-        helipad.Draw(ourShader);
-
-        // helicopter
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(50.0f, 22.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
-        ourShader.setMat4("model", model);
-        helicopter.Draw(ourShader);
+        building1.draw(ourShader);
+        building2.draw(ourShader);
 
         // boxes
         model = glm::mat4(1.0f);

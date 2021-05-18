@@ -10,14 +10,15 @@
 
 class Building {
 	private:
-		Model building;
-		Model vents;
-		Model solar_panel;
+		Model model1;
+		Model model2;
+		Model model3;
 		glm::vec3 pos;
 		glm::vec3 size;
+		int type;
 	public:
 		Collision building_col;
-		Building(glm::vec3 pos, glm::vec3 size = glm::vec3(50.0f, 200.0f, 50.0f));
+		Building(glm::vec3 pos, int type, glm::vec3 size = glm::vec3(50.0f, 200.0f, 50.0f));
 		void draw(Shader ourShader);
 };
 
