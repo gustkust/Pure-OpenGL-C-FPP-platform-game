@@ -10,6 +10,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd E:\\Usuários\\Lucas\\Área de Trabalho\\3D\\Blender\\Dumpsters\\textures_dumpster_green\\dumpsters_Dumpster_BaseColor.png
-map_Ns E:\\Usuários\\Lucas\\Área de Trabalho\\3D\\Blender\\Dumpsters\\textures_dumpster_green\\dumpsters_Dumpster_Roughness.png
-refl E:\\Usuários\\Lucas\\Área de Trabalho\\3D\\Blender\\Dumpsters\\textures_dumpster_green\\dumpsters_Dumpster_Metallic.png
+map_Kd base.jpg

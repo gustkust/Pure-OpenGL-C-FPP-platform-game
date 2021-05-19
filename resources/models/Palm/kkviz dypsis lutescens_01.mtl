@@ -61,8 +61,8 @@ newmtl kkviz_soil_01
 	Kd 0.5000 0.5000 0.5000
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka kkviz soil 01_alb 01.jpeg
-	map_Kd kkviz soil 01_alb 01.jpeg
+	map_Ka kkviz soil 01_alb 01.jpg
+	map_Kd kkviz soil 01_alb 01.jpg
 	map_bump kkviz soil 01_nrm.jpg
 	bump kkviz soil 01_nrm.jpg
 
@@ -77,5 +77,4 @@ newmtl kkviz_pottery_01
 	Kd 0.0392 0.0392 0.0392
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_bump kkviz noise_01.jpg
-	bump kkviz noise_01.jpg
+	map_Kd kkviz noise_01.jpg
