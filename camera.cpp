@@ -39,7 +39,7 @@ void camera::positionChange(float deltaTime, Collision boxes[7])
 	pos -= glm::normalize(glm::cross(front, up)) * speedLeft;
 	pos += glm::normalize(glm::cross(front, up)) * speedRight;
 
-	if (jumpHeight <= -1000.0f) {
+	if (jumpHeight <= -400.0f) {
 		pos = glm::vec3(0.0f, 0.0f, 3.0f);
 		jumpHeight = 0.0f;
 	}
