@@ -10,9 +10,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
 illum 2
-map_Kd  tex.jpg
-map_Tr  tex.jpg
-map_d  tex.jpg
+map_Kd  tex.png
+map_Tr  tex.png
+map_d  tex.png
 
 newmtl Material.001
 Ns 96.078431
@@ -23,7 +23,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
 illum 2
-map_Kd  tex2.jpg
-map_Ks  tex2.jpg
-map_Tr  tex2.jpg
-map_d  tex2.jpg
+map_Kd  tex2.png
+map_Ks  tex2.png
+map_Tr  tex2.png
+map_d  tex2.png
