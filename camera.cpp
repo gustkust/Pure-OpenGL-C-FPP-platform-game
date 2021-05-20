@@ -138,3 +138,7 @@ camera::camera(glm::vec3 newPos, glm::vec3 newFront, glm::vec3 newUp,
 glm::vec3 camera::getPos() {
 	return pos;
 }
+
+glm::vec3 camera::getFront() {
+	return front;
+}

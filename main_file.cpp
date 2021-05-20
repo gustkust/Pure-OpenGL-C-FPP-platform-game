@@ -101,6 +101,13 @@ GLFWwindow* GLFWsetup() {
 
 
 int main() {
+    glm::vec3 pointLightPositions[] = {
+        glm::vec3(50.0f,  10.0f,  50.0f),
+        glm::vec3(-50.0f, 10.0f, 50.0f),
+        glm::vec3(50.0f,  10.0f, -50.0f),
+        glm::vec3(-50.0f,  10.0f, -50.0f)
+    };
+
     // configure glfw and create a window
     GLFWwindow* window = GLFWsetup();
 
@@ -115,7 +122,7 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     // load shaders and create shader object
-    Shader ourShader("model.vs", "model.fs");
+    Shader lightingShader("model.vs", "model.fs");
     Shader skyboxShader("skybox.vs", "skybox.fs");
 
     // load model and create model object
@@ -147,6 +154,10 @@ int main() {
     float boxPosChange = 0.15f; // change of boxPos per frame
     float boxPosRange = 80.0f; // range of boxPos
     // main loop
+
+    lightingShader.use();
+    lightingShader.setInt("material.diffuse", 0);
+    lightingShader.setInt("material.specular", 1);
     while (!glfwWindowShouldClose(window)) {
 
         // moving box
@@ -160,43 +171,97 @@ int main() {
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        ourShader.use();
-
         myCam.positionChange(deltaTime, boxes);
+
+
+
+        lightingShader.use();
+        lightingShader.setVec3("viewPos", myCam.getPos());
+        lightingShader.setFloat("material.shininess", 32.0f);
+
+        lightingShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+        lightingShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+        lightingShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+        // point light 1
+        lightingShader.setVec3("pointLights[0].position", pointLightPositions[0]);
+        lightingShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+        lightingShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("pointLights[0].constant", 1.0f);
+        lightingShader.setFloat("pointLights[0].linear", 0.09);
+        lightingShader.setFloat("pointLights[0].quadratic", 0.032);
+        // point light 2
+        lightingShader.setVec3("pointLights[1].position", pointLightPositions[1]);
+        lightingShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+        lightingShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("pointLights[1].constant", 1.0f);
+        lightingShader.setFloat("pointLights[1].linear", 0.09);
+        lightingShader.setFloat("pointLights[1].quadratic", 0.032);
+        // point light 3
+        lightingShader.setVec3("pointLights[2].position", pointLightPositions[2]);
+        lightingShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+        lightingShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("pointLights[2].constant", 1.0f);
+        lightingShader.setFloat("pointLights[2].linear", 0.09);
+        lightingShader.setFloat("pointLights[2].quadratic", 0.032);
+        // point light 4
+        lightingShader.setVec3("pointLights[3].position", pointLightPositions[3]);
+        lightingShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+        lightingShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("pointLights[3].constant", 1.0f);
+        lightingShader.setFloat("pointLights[3].linear", 0.09);
+        lightingShader.setFloat("pointLights[3].quadratic", 0.032);
+        // spotLight
+        lightingShader.setVec3("spotLight.position", myCam.getPos());
+        lightingShader.setVec3("spotLight.direction", myCam.getFront());
+        lightingShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+        lightingShader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+        lightingShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setFloat("spotLight.constant", 1.0f);
+        lightingShader.setFloat("spotLight.linear", 0.09);
+        lightingShader.setFloat("spotLight.quadratic", 0.032);
+        lightingShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+        lightingShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+
+
 
         // model, view and projection matrices setup
         glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 6000.0f);
         glm::mat4 view = myCam.getV();
-        ourShader.setMat4("projection", projection);
-        ourShader.setMat4("view", view);
+        lightingShader.setMat4("projection", projection);
+        lightingShader.setMat4("view", view);
         glm::mat4 model = glm::mat4(1.0f);
     
 
         //building
-        building1.draw(ourShader);
-        building2.draw(ourShader);
-        building3.draw(ourShader);
-        building4.draw(ourShader);
+        building1.draw(lightingShader);
+        building2.draw(lightingShader);
+        building3.draw(lightingShader);
+        building4.draw(lightingShader);
 
 
         // boxes
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -10.0f, 0.0f));
         model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
-        ourShader.setMat4("model", model);
-        crate.Draw(ourShader);
+        lightingShader.setMat4("model", model);
+        crate.Draw(lightingShader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -10.0f, -60.0f));
         model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
-        ourShader.setMat4("model", model);
-        crate.Draw(ourShader);
+        lightingShader.setMat4("model", model);
+        crate.Draw(lightingShader);
 
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(boxPos, -10.0f, -30.0f)); // moving box
         model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
-        ourShader.setMat4("model", model);
-        crate.Draw(ourShader);
+        lightingShader.setMat4("model", model);
+        crate.Draw(lightingShader);
         // update boxPos
         if (boxPos >= boxPosRange || boxPos <= -boxPosRange) boxPosChange *= -1;
         boxPos += boxPosChange;

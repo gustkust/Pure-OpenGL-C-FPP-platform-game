@@ -88,6 +88,7 @@ public:
 	void setLastY(float newValue);
 
 	glm::vec3 getPos();
+	glm::vec3 getFront();
 
 	void changeSensitivity(float newValue);
 
