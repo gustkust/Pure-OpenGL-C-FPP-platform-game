@@ -124,6 +124,7 @@ int main() {
     // load shaders and create shader object
     Shader lightingShader("model.vs", "model.fs");
     Shader skyboxShader("skybox.vs", "skybox.fs");
+    Shader lightSourceShader("lightSource.vs", "lightSource.fs");
 
     // load model and create model object
     Model crate("resources/models/Crate/Crate1.obj");
@@ -174,18 +175,18 @@ int main() {
         myCam.positionChange(deltaTime, boxes);
 
 
-
+        float ambientValue = 0.3f;
         lightingShader.use();
         lightingShader.setVec3("viewPos", myCam.getPos());
         lightingShader.setFloat("material.shininess", 32.0f);
 
         lightingShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-        lightingShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("dirLight.ambient", ambientValue, ambientValue, ambientValue);
         lightingShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
         lightingShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
         // point light 1
         lightingShader.setVec3("pointLights[0].position", pointLightPositions[0]);
-        lightingShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("pointLights[0].ambient", ambientValue, ambientValue, ambientValue);
         lightingShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("pointLights[0].constant", 1.0f);
@@ -193,7 +194,7 @@ int main() {
         lightingShader.setFloat("pointLights[0].quadratic", 0.032);
         // point light 2
         lightingShader.setVec3("pointLights[1].position", pointLightPositions[1]);
-        lightingShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("pointLights[1].ambient", ambientValue, ambientValue, ambientValue);
         lightingShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("pointLights[1].constant", 1.0f);
@@ -201,7 +202,7 @@ int main() {
         lightingShader.setFloat("pointLights[1].quadratic", 0.032);
         // point light 3
         lightingShader.setVec3("pointLights[2].position", pointLightPositions[2]);
-        lightingShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("pointLights[2].ambient", ambientValue, ambientValue, ambientValue);
         lightingShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("pointLights[2].constant", 1.0f);
@@ -209,7 +210,7 @@ int main() {
         lightingShader.setFloat("pointLights[2].quadratic", 0.032);
         // point light 4
         lightingShader.setVec3("pointLights[3].position", pointLightPositions[3]);
-        lightingShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.setVec3("pointLights[3].ambient", ambientValue, ambientValue, ambientValue);
         lightingShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("pointLights[3].constant", 1.0f);
@@ -266,7 +267,20 @@ int main() {
         if (boxPos >= boxPosRange || boxPos <= -boxPosRange) boxPosChange *= -1;
         boxPos += boxPosChange;
 
-        //skybox
+        // lights
+        lightSourceShader.use();
+        lightSourceShader.setMat4("projection", projection);
+        lightSourceShader.setMat4("view", view);
+        for (unsigned int i = 0; i < 4; i++)
+        {
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, pointLightPositions[i]);
+            //model = glm::scale(model, glm::vec3(0.3f)); // Make it a smaller cube
+            lightSourceShader.setMat4("model", model);
+            crate.Draw(lightSourceShader);
+        }
+
+        // skybox
         glDepthFunc(GL_LEQUAL);
         skyboxShader.use();
         view = glm::mat4(glm::mat3(view));
