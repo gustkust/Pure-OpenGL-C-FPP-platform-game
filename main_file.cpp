@@ -128,6 +128,7 @@ int main() {
 
     // load model and create model object
     Model crate("resources/models/Crate/Crate1.obj");
+    Model light("resources/models/Light/3d-model.obj");
 
     Building building1(glm::vec3(150.0f, -215.0f, 0.0f), 1);
     Building building2(glm::vec3(150.0f, -245.0f, 120.0f), 2);
@@ -175,7 +176,7 @@ int main() {
         myCam.positionChange(deltaTime, boxes);
 
 
-        float ambientValue = 0.1f;
+        float ambientValue = 0.5f;
         lightingShader.use();
         lightingShader.setVec3("viewPos", myCam.getPos());
         lightingShader.setFloat("material.shininess", 32.0f);
@@ -228,6 +229,15 @@ int main() {
         building2.draw(lightingShader);
         building3.draw(lightingShader);
         building4.draw(lightingShader);
+
+        // light
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-20.0f, -10.0f, -20.0f));
+        model = glm::scale(model, glm::vec3(0.005f, 0.005f, 0.005f));
+        model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, 135.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+        lightingShader.setMat4("model", model);
+        light.Draw(lightingShader);
 
 
         // boxes
