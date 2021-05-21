@@ -175,46 +175,12 @@ int main() {
 
         myCam.positionChange(deltaTime, boxes);
 
-
-        float ambientValue = 0.5f;
+        // shader constants
+        float ambientValue = 0.3f;
         lightingShader.use();
         lightingShader.setVec3("viewPos", myCam.getPos());
         lightingShader.setFloat("material.shininess", 32.0f);
         lightingShader.setVec3("amb", ambientValue, ambientValue, ambientValue);
-        // point light 1
-        lightingShader.setVec3("pointLights[0].position", pointLightPositions[0]);
-        lightingShader.setVec3("pointLights[0].ambient", ambientValue, ambientValue, ambientValue);
-        lightingShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
-        lightingShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
-        lightingShader.setFloat("pointLights[0].constant", 1.0f);
-        lightingShader.setFloat("pointLights[0].linear", 0.018);
-        lightingShader.setFloat("pointLights[0].quadratic", 0.001);
-        // point light 2
-        lightingShader.setVec3("pointLights[1].position", pointLightPositions[1]);
-        lightingShader.setVec3("pointLights[1].ambient", ambientValue, ambientValue, ambientValue);
-        lightingShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
-        lightingShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
-        lightingShader.setFloat("pointLights[1].constant", 1.0f);
-        lightingShader.setFloat("pointLights[1].linear", 0.018);
-        lightingShader.setFloat("pointLights[1].quadratic", 0.001);
-        // point light 3
-        lightingShader.setVec3("pointLights[2].position", pointLightPositions[2]);
-        lightingShader.setVec3("pointLights[2].ambient", ambientValue, ambientValue, ambientValue);
-        lightingShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
-        lightingShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
-        lightingShader.setFloat("pointLights[2].constant", 1.0f);
-        lightingShader.setFloat("pointLights[2].linear", 0.018);
-        lightingShader.setFloat("pointLights[2].quadratic", 0.001);
-        // point light 4
-        lightingShader.setVec3("pointLights[3].position", pointLightPositions[3]);
-        lightingShader.setVec3("pointLights[3].ambient", ambientValue, ambientValue, ambientValue);
-        lightingShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-        lightingShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
-        lightingShader.setFloat("pointLights[3].constant", 1.0f);
-        lightingShader.setFloat("pointLights[3].linear", 0.018);
-        lightingShader.setFloat("pointLights[3].quadratic", 0.001);
-
-
 
         // model, view and projection matrices setup
         glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 6000.0f);
@@ -225,10 +191,10 @@ int main() {
     
 
         //building
-        building1.draw(lightingShader);
-        building2.draw(lightingShader);
-        building3.draw(lightingShader);
-        building4.draw(lightingShader);
+        building1.draw(lightingShader, 0, lightSourceShader);
+        building2.draw(lightingShader, 4, lightSourceShader);
+        building3.draw(lightingShader, 8, lightSourceShader);
+        building4.draw(lightingShader, 12, lightSourceShader);
 
         // boxes
         model = glm::mat4(1.0f);

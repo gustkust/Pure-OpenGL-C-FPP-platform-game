@@ -52,7 +52,46 @@ Building::Building(glm::vec3 pos, int type, glm::vec3 size) {
 	}	 
 }
 
-void Building::draw(Shader ourShader) {
+void Building::draw(Shader ourShader, int num, Shader sourceShader) {
+	float ambientValue = 0.1f;
+	string number = to_string(num);
+	ourShader.setVec3("pointLights[" + number + "].position", pos - size + glm::vec3(4.0f, 400.0f, 3.0f));
+	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
+	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
+	ourShader.setFloat("pointLights[" + number + "].constant", 1.0f);
+	ourShader.setFloat("pointLights[" + number + "].linear", 0.018);
+	ourShader.setFloat("pointLights[" + number + "].quadratic", 0.001);
+	num += 1;
+	number = to_string(num);
+	// point light 2
+	ourShader.setVec3("pointLights[" + number + "].position", pos + size + glm::vec3(-4.0f, 1.0f, -3.0f));
+	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
+	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
+	ourShader.setFloat("pointLights[" + number + "].constant", 1.0f);
+	ourShader.setFloat("pointLights[" + number + "].linear", 0.018);
+	ourShader.setFloat("pointLights[" + number + "].quadratic", 0.001);
+	num += 1;
+	number = to_string(num);
+	// point light 3
+	ourShader.setVec3("pointLights[" + number + "].position", pos + glm::vec3(-size[2] + 4.5f, 201.0f, size[2] - 3.0f));
+	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
+	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
+	ourShader.setFloat("pointLights[" + number + "].constant", 1.0f);
+	ourShader.setFloat("pointLights[" + number + "].linear", 0.018);
+	ourShader.setFloat("pointLights[" + number + "].quadratic", 0.001);
+	num += 1;
+	number = to_string(num);
+	// point light 4
+	ourShader.setVec3("pointLights[" + number + "].position", pos + glm::vec3(size[2] - 4.5f, 200.0f, -size[2] + 3.0f));
+	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
+	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
+	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
+	ourShader.setFloat("pointLights[" + number + "].constant", 1.0f);
+	ourShader.setFloat("pointLights[" + number + "].linear", 0.018);
+	ourShader.setFloat("pointLights[" + number + "].quadratic", 0.001);
 	// building
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, pos);
@@ -61,13 +100,14 @@ void Building::draw(Shader ourShader) {
 	ourShader.setMat4("model", model);
 	model1.Draw(ourShader);
 
+	// light sources
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, pos - size + glm::vec3(4.0f, 400.0f, 3.0f));
 	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 135.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	ourShader.setMat4("model", model);
-	light.Draw(ourShader);
+	light.Draw(sourceShader);
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, pos + size + glm::vec3(-4.0f, 1.0f, -3.0f));
@@ -75,7 +115,7 @@ void Building::draw(Shader ourShader) {
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 315.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	ourShader.setMat4("model", model);
-	light.Draw(ourShader);
+	light.Draw(sourceShader);
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, pos + glm::vec3(-size[2] + 4.5f, 201.0f, size[2] - 3.0f));
@@ -83,7 +123,7 @@ void Building::draw(Shader ourShader) {
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 45.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	ourShader.setMat4("model", model);
-	light.Draw(ourShader);
+	light.Draw(sourceShader);
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, pos + glm::vec3(size[2] - 4.5f, 200.0f, -size[2] + 3.0f));
@@ -91,7 +131,7 @@ void Building::draw(Shader ourShader) {
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 225.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	ourShader.setMat4("model", model);
-	light.Draw(ourShader);
+	light.Draw(sourceShader);
 
 	if (type == 1) {
 		// vents
