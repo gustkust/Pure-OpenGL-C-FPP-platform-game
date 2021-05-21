@@ -13,6 +13,8 @@ Building::Building(glm::vec3 pos, int type, glm::vec3 size) {
 		this->model2 = tmp2;
 		Model tmp3("resources/models/solar_panel/3d-model.obj");
 		this->model3 = tmp3;
+		Model tmp4("resources/models/Light/3d-model.obj");
+		this->light = tmp4;
 	}
 	else if (type == 2) {
 		Model tmp1("resources/models/building2/building.obj");
@@ -21,6 +23,8 @@ Building::Building(glm::vec3 pos, int type, glm::vec3 size) {
 		this->model2 = tmp2;
 		Model tmp3("resources/models/helicopter/uploads_files_2739645_HelicopterOBJ.obj");
 		this->model3 = tmp3;
+		Model tmp4("resources/models/Light/3d-model.obj");
+		this->light = tmp4;
 	}
 	else if (type == 3) {
 		Model tmp1("resources/models/building3/building.obj");
@@ -31,6 +35,8 @@ Building::Building(glm::vec3 pos, int type, glm::vec3 size) {
 		this->model3 = tmp3;
 		Model tmp4("resources/models/Plant/uploads_files_2749739_A1.obj");
 		this->model4 = tmp4;
+		Model tmp5("resources/models/Light/3d-model.obj");
+		this->light = tmp5;
 	}
 	else if (type == 4) {
 		Model tmp1("resources/models/building4/building.obj");
@@ -41,6 +47,8 @@ Building::Building(glm::vec3 pos, int type, glm::vec3 size) {
 		this->model3 = tmp3;
 		Model tmp4("resources/models/Arm/Robotic Arm.obj");
 		this->model4 = tmp4;
+		Model tmp5("resources/models/Light/3d-model.obj");
+		this->light = tmp5;
 	}	 
 }
 
@@ -52,6 +60,39 @@ void Building::draw(Shader ourShader) {
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	ourShader.setMat4("model", model);
 	model1.Draw(ourShader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, pos - size + glm::vec3(4.0f, 400.0f, 3.0f));
+	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
+	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, 135.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	ourShader.setMat4("model", model);
+	light.Draw(ourShader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, pos + size + glm::vec3(-4.0f, 1.0f, -3.0f));
+	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
+	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, 315.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	ourShader.setMat4("model", model);
+	light.Draw(ourShader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, pos + glm::vec3(-size[2] + 4.5f, 201.0f, size[2] - 3.0f));
+	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
+	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, 45.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	ourShader.setMat4("model", model);
+	light.Draw(ourShader);
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, pos + glm::vec3(size[2] - 4.5f, 200.0f, -size[2] + 3.0f));
+	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
+	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, 225.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	ourShader.setMat4("model", model);
+	light.Draw(ourShader);
+
 	if (type == 1) {
 		// vents
 		model = glm::mat4(1.0f);

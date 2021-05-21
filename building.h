@@ -14,6 +14,7 @@ class Building {
 		Model model2;
 		Model model3;
 		Model model4;
+		Model light;
 		glm::vec3 pos;
 		glm::vec3 size;
 		int type;

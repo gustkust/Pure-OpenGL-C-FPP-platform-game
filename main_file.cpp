@@ -230,16 +230,6 @@ int main() {
         building3.draw(lightingShader);
         building4.draw(lightingShader);
 
-        // light
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-20.0f, -10.0f, -20.0f));
-        model = glm::scale(model, glm::vec3(0.005f, 0.005f, 0.005f));
-        model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-        model = glm::rotate(model, 135.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-        lightingShader.setMat4("model", model);
-        light.Draw(lightingShader);
-
-
         // boxes
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -10.0f, 0.0f));
