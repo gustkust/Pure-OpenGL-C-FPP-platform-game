@@ -175,23 +175,19 @@ int main() {
         myCam.positionChange(deltaTime, boxes);
 
 
-        float ambientValue = 0.3f;
+        float ambientValue = 0.1f;
         lightingShader.use();
         lightingShader.setVec3("viewPos", myCam.getPos());
         lightingShader.setFloat("material.shininess", 32.0f);
-
-        lightingShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-        lightingShader.setVec3("dirLight.ambient", ambientValue, ambientValue, ambientValue);
-        lightingShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-        lightingShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+        lightingShader.setVec3("amb", ambientValue, ambientValue, ambientValue);
         // point light 1
         lightingShader.setVec3("pointLights[0].position", pointLightPositions[0]);
         lightingShader.setVec3("pointLights[0].ambient", ambientValue, ambientValue, ambientValue);
         lightingShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("pointLights[0].constant", 1.0f);
-        lightingShader.setFloat("pointLights[0].linear", 0.09);
-        lightingShader.setFloat("pointLights[0].quadratic", 0.032);
+        lightingShader.setFloat("pointLights[0].linear", 0.007);
+        lightingShader.setFloat("pointLights[0].quadratic", 0.0002);
         // point light 2
         lightingShader.setVec3("pointLights[1].position", pointLightPositions[1]);
         lightingShader.setVec3("pointLights[1].ambient", ambientValue, ambientValue, ambientValue);
