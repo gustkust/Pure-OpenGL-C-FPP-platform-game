@@ -59,7 +59,7 @@ public:
 
 	glm::mat4 getV();
 
-	Camera(glm::vec3 newPos = glm::vec3(0.0f, 0.0f, 3.0f),
+	Camera(glm::vec3 newPos = glm::vec3(0.0f, 5.0f, 3.0f),
 		glm::vec3 newFront = glm::vec3(0.0f, 0.0f, -1.0f),
 		glm::vec3 newUp = glm::vec3(0.0f, 1.0f, 0.0f),
 		float newYaw = -90.0f, float newPitch = 0.0f,

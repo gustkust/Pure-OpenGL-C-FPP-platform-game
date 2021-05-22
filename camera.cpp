@@ -32,7 +32,7 @@ void Camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
 }
 
 
-void Camera::positionChange(float deltaTime, Collision boxes[7])
+void Camera::positionChange(float deltaTime, Collision boxes[12])
 {
 	pos += speedForward * front;
 	pos -= speedBackward * front;
@@ -46,7 +46,7 @@ void Camera::positionChange(float deltaTime, Collision boxes[7])
 
 	jumpHeight += 5 * deltaTime * jumpSpeed;
 	jumpSpeed += 5 * deltaTime * gravitySpeed;
-	for (int i = 0; i < 7; i++) {
+	for (int i = 0; i < 12; i++) {
 		if (boxes[i].checkCollision(pos)) {
 			if (jumpHeight <= boxes[i].sector[1][1] && jumpHeight >= boxes[i].sector[1][1] - 15) {
 				jumpHeight = boxes[i].sector[1][1];

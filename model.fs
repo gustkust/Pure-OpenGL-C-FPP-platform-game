@@ -32,7 +32,7 @@ uniform vec3 viewPos;
 // ambient light color
 uniform vec3 amb;
 // point lights properties
-uniform PointLight pointLights[16];
+uniform PointLight pointLights[40];
 // material properties
 uniform Material material;
 
@@ -67,7 +67,7 @@ void main() {
     vec3 result = amb * vec3(texture(material.diffuse, TexCoords));
 
     // lights calculations
-    for(int i = 0; i < 16; i++) {
+    for(int i = 0; i < 40; i++) {
         result += CalcPointLight(pointLights[i], norm, FragPos, viewDir);  
     }    
     
