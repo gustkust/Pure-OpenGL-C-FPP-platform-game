@@ -1,12 +1,14 @@
 #ifndef MESH_H
 #define MESH_H
 
+
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <Shader.h>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 
@@ -45,4 +47,6 @@ private:
     unsigned int VBO, EBO;
 
 };
+
+
 #endif

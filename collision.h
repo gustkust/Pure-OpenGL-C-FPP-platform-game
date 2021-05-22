@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
+
 class Collision {
 public:
 	Collision();
@@ -15,4 +16,6 @@ public:
 	bool checkCollision(glm::vec3 cameraPosition);
 	glm::vec3 posChange;
 };
+
+
 #endif

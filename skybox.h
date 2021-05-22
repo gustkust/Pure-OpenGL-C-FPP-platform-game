@@ -1,6 +1,7 @@
 #ifndef SKYBOX_H
 #define SKYBOX_H
 
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -23,5 +24,6 @@ public:
     Shader skyboxShader;
     void draw(glm::mat4 view, glm::mat4 projection);
 };
+
 
 #endif

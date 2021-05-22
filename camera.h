@@ -1,39 +1,3 @@
-
-// KeyCallback function should look something like this:
-//void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-//	if (action == GLFW_PRESS) {
-//		if (key == GLFW_KEY_A) myCam.setSpeedLeft(0.06);
-//		if (key == GLFW_KEY_D) myCam.setSpeedRight(0.06);
-//		if (key == GLFW_KEY_W) myCam.setSpeedForward(0.06);
-//		if (key == GLFW_KEY_S) myCam.setSpeedBackward(0.06);
-//		if (key == GLFW_KEY_SPACE) myCam.jump(true);
-//	}
-//	if (action == GLFW_RELEASE) {
-//		if (key == GLFW_KEY_A) myCam.setSpeedLeft(0);
-//		if (key == GLFW_KEY_D) myCam.setSpeedRight(0);
-//		if (key == GLFW_KEY_W) myCam.setSpeedForward(0);
-//		if (key == GLFW_KEY_S) myCam.setSpeedBackward(0);
-//		if (key == GLFW_KEY_SPACE) myCam.jump(false);
-//	}
-//}
-
-// You will need global variable firstMouse = true and your MouseCallBack function should look like this:
-//void mouseCallback(GLFWwindow* window, double xPos, double yPos)
-//{
-//	myCam.mouseMovement(xPos, yPos, firstMouse);
-//	firstMouse = false;
-//}
-
-// In every frame you need to call positionChange method.
-
-// Also you want to set these things:
-//glfwSetKeyCallback(window, keyCallback);
-//glfwSetCursorPosCallback(window, mouseCallback);
-//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-// To get V you simply use getV method.
-
-
 #ifndef CAMERA_H
 #define CAMERA_H
 
@@ -43,10 +7,11 @@
 #include "stdio.h"
 #include <iostream>
 #include "collision.h"
+
 using namespace std;
 
 
-class camera {
+class Camera {
 private:
 	glm::vec3 pos = glm::vec3(0.0f, 0.0f, 3.0f);
 	glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -94,7 +59,7 @@ public:
 
 	glm::mat4 getV();
 
-	camera(glm::vec3 newPos = glm::vec3(0.0f, 0.0f, 3.0f),
+	Camera(glm::vec3 newPos = glm::vec3(0.0f, 0.0f, 3.0f),
 		glm::vec3 newFront = glm::vec3(0.0f, 0.0f, -1.0f),
 		glm::vec3 newUp = glm::vec3(0.0f, 1.0f, 0.0f),
 		float newYaw = -90.0f, float newPitch = 0.0f,

@@ -24,24 +24,24 @@ float lastTime = 0.0;
 float deltaTime = 0.0;
 
 // camera
-camera myCam;
+Camera myCam;
 
 
-bool w_pressed = false;
+bool wPressed = false;
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 
     if (action == GLFW_PRESS) {
         if (key == GLFW_KEY_A) myCam.setSpeedLeft(15 * deltaTime);
         if (key == GLFW_KEY_D) myCam.setSpeedRight(15 * deltaTime);
         if (key == GLFW_KEY_W) {
-            w_pressed = true;
+            wPressed = true;
             myCam.setSpeedForward(15 * deltaTime);
         }
         if (key == GLFW_KEY_S) myCam.setSpeedBackward(15 * deltaTime);
         if (key == GLFW_KEY_SPACE) myCam.jump(true);
         if (key == GLFW_KEY_C) myCam.newCrouch(true);
         if (key == GLFW_KEY_LEFT_SHIFT) {
-            if (w_pressed) {
+            if (wPressed) {
                 myCam.setSpeedForward(3 * 15 * deltaTime);
             }
         }
@@ -51,14 +51,14 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
         if (key == GLFW_KEY_D) myCam.setSpeedRight(0);
         if (key == GLFW_KEY_W)
         {
-            w_pressed = false;
+            wPressed = false;
             myCam.setSpeedForward(0);
         }
         if (key == GLFW_KEY_S) myCam.setSpeedBackward(0);
         if (key == GLFW_KEY_SPACE) myCam.jump(false);
         if (key == GLFW_KEY_C) myCam.newCrouch(false);
         if (key == GLFW_KEY_LEFT_SHIFT) {
-            if (w_pressed) {
+            if (wPressed) {
                 myCam.setSpeedForward(15 * deltaTime);
             }
         }

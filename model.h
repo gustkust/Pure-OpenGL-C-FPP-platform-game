@@ -1,18 +1,16 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include <GL/glew.h>
 
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "stb_image.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-
 #include <mesh.h>
 #include <Shader.h>
-
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -42,7 +40,6 @@ private:
 
     vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
 };
-
 
 
 #endif

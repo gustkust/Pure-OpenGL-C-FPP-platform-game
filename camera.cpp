@@ -1,7 +1,7 @@
 #include "camera.h"
 
 
-void camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
+void Camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
 	if (firstMouse)
 	{
 		lastX = xPos;
@@ -32,7 +32,7 @@ void camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
 }
 
 
-void camera::positionChange(float deltaTime, Collision boxes[7])
+void Camera::positionChange(float deltaTime, Collision boxes[7])
 {
 	pos += speedForward * front;
 	pos -= speedBackward * front;
@@ -58,7 +58,7 @@ void camera::positionChange(float deltaTime, Collision boxes[7])
 }
 
 
-void camera::jump(bool keepJumping) {
+void Camera::jump(bool keepJumping) {
 	if (keepJumping && !jumpUp) {
 		jumpSpeed = 7.0;
 		jumpUp = true;
@@ -71,48 +71,48 @@ void camera::jump(bool keepJumping) {
 }
 
 
-void camera::newCrouch(bool keepCrouch) {
+void Camera::newCrouch(bool keepCrouch) {
 	if (keepCrouch) crouch = true;
 	else if (!keepCrouch && crouch) crouch = false;
 }
 
 
-void camera::setSpeedLeft(float newValue) {
+void Camera::setSpeedLeft(float newValue) {
 	speedLeft = newValue;
 }
 
 
-void camera::setSpeedRight(float newValue) {
+void Camera::setSpeedRight(float newValue) {
 	speedRight = newValue;
 }
 
 
-void camera::setSpeedForward(float newValue) {
+void Camera::setSpeedForward(float newValue) {
 	speedForward = newValue;
 }
 
 
-void camera::setSpeedBackward(float newValue) {
+void Camera::setSpeedBackward(float newValue) {
 	speedBackward = newValue;
 }
 
 
-void camera::setLastX(float newValue) {
+void Camera::setLastX(float newValue) {
 	lastX = newValue;
 }
 
 
-void camera::setLastY(float newValue) {
+void Camera::setLastY(float newValue) {
 	lastY = newValue;
 }
 
 
-void camera::changeSensitivity(float newValue) {
+void Camera::changeSensitivity(float newValue) {
 	sensitivity = newValue;
 }
 
 
-glm::mat4 camera::getV() {
+glm::mat4 Camera::getV() {
 	cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
 	//return glm::lookAt(pos, pos + front, up);
 	// To get FPS camera use instead:
@@ -121,7 +121,7 @@ glm::mat4 camera::getV() {
 }
 
 
-camera::camera(glm::vec3 newPos, glm::vec3 newFront, glm::vec3 newUp,
+Camera::Camera(glm::vec3 newPos, glm::vec3 newFront, glm::vec3 newUp,
 	float newYaw, float newPitch, float newFov,
 	float newSensitivity, float newLastX, float newLastY) {
 	pos = newPos;
@@ -135,10 +135,10 @@ camera::camera(glm::vec3 newPos, glm::vec3 newFront, glm::vec3 newUp,
 	lastY = newLastY;
 }
 
-glm::vec3 camera::getPos() {
+glm::vec3 Camera::getPos() {
 	return pos;
 }
 
-glm::vec3 camera::getFront() {
+glm::vec3 Camera::getFront() {
 	return front;
 }
