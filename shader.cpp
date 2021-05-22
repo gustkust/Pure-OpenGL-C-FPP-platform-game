@@ -118,3 +118,4 @@ void Shader::checkCompileErrors(GLuint shader, std::string type) {
     }
 }
 
+Shader::Shader() {}

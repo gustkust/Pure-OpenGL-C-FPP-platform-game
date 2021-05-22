@@ -80,13 +80,8 @@ GLFWwindow* GLFWsetup() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    //creating window
+    // creating window
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Jumping on roofs!", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Error creating GLFW window" << std::endl;
-        glfwTerminate();
-    }
 
     // setting context and callbacks
     glfwMakeContextCurrent(window);
@@ -101,13 +96,6 @@ GLFWwindow* GLFWsetup() {
 
 
 int main() {
-    glm::vec3 pointLightPositions[] = {
-        glm::vec3(50.0f,  -15.0f,  50.0f),
-        glm::vec3(-50.0f, -15.0f, 50.0f),
-        glm::vec3(50.0f,  -15.0f, -50.0f),
-        glm::vec3(-50.0f, -15.0f, -50.0f)
-    };
-
     // configure glfw and create a window
     GLFWwindow* window = GLFWsetup();
 
@@ -123,7 +111,6 @@ int main() {
 
     // load shaders and create shader object
     Shader lightingShader("model.vs", "model.fs");
-    Shader skyboxShader("skybox.vs", "skybox.fs");
     Shader lightSourceShader("lightSource.vs", "lightSource.fs");
 
     // load model and create model object
@@ -135,10 +122,8 @@ int main() {
     Building building3(glm::vec3(0.0f, -215.0f, 120.0f), 3);
     Building building4(glm::vec3(0.0f, -215.0f, 0.0f), 4);
 
-
     // load skybox
-    skybox mySkybox;
-    unsigned int cubemapTexture = mySkybox.load();
+    Skybox citySkybox;
 
     // two static boxes
     Collision box1(glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(10.0f, 1.0f, 10.0f));
@@ -170,7 +155,6 @@ int main() {
         deltaTime = thisTime - lastTime;
         lastTime = thisTime;
 
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         myCam.positionChange(deltaTime, boxes);
@@ -188,7 +172,6 @@ int main() {
         lightingShader.setMat4("projection", projection);
         lightingShader.setMat4("view", view);
         glm::mat4 model = glm::mat4(1.0f);
-    
 
         //building
         building1.draw(lightingShader, 0, lightSourceShader);
@@ -218,32 +201,8 @@ int main() {
         if (boxPos >= boxPosRange || boxPos <= -boxPosRange) boxPosChange *= -1;
         boxPos += boxPosChange;
 
-        // lights
-        lightSourceShader.use();
-        lightSourceShader.setMat4("projection", projection);
-        lightSourceShader.setMat4("view", view);
-        for (unsigned int i = 0; i < 4; i++)
-        {
-            model = glm::mat4(1.0f);
-            model = glm::translate(model, pointLightPositions[i]);
-            //model = glm::scale(model, glm::vec3(0.3f)); // Make it a smaller cube
-            lightSourceShader.setMat4("model", model);
-            crate.Draw(lightSourceShader);
-        }
-
         // skybox
-        glDepthFunc(GL_LEQUAL);
-        skyboxShader.use();
-        view = glm::mat4(glm::mat3(view));
-        skyboxShader.setMat4("view", view);
-        skyboxShader.setMat4("projection", projection);
-        glBindVertexArray(mySkybox.VAO);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
-        glDepthFunc(GL_LESS);
-
+        citySkybox.draw(view, projection);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
