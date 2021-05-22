@@ -79,11 +79,5 @@
     <None Include="skybox.vs">
       <Filter>Pliki zasobów</Filter>
     </None>
-    <None Include="lightSource.vs">
-      <Filter>Pliki zasobów</Filter>
-    </None>
-    <None Include="lightSource.fs">
-      <Filter>Pliki zasobów</Filter>
-    </None>
   </ItemGroup>
 </Project>

@@ -44,7 +44,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geo
     glShaderSource(fragment, 1, &fShaderCode, NULL);
     glCompileShader(fragment);
     checkCompileErrors(fragment, "FRAGMENT");
-    
+
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);

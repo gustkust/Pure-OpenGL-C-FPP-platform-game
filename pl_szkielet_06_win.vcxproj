@@ -39,8 +39,6 @@
     <ClCompile Include="skybox.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lightSource.fs" />
-    <None Include="lightSource.vs" />
     <None Include="model.fs" />
     <None Include="model.vs" />
     <None Include="skybox.fs" />

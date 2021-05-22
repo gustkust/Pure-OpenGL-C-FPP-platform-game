@@ -52,7 +52,7 @@ Building::Building(glm::vec3 pos, int type, glm::vec3 size) {
 	}	 
 }
 
-void Building::draw(Shader ourShader, int num, Shader sourceShader) {
+void Building::draw(Shader ourShader, int num) {
 	float ambientValue = 0.1f;
 	string number = to_string(num);
 	ourShader.setVec3("pointLights[" + number + "].position", pos - size + glm::vec3(4.0f, 400.0f, 3.0f));
@@ -107,7 +107,7 @@ void Building::draw(Shader ourShader, int num, Shader sourceShader) {
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 135.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	ourShader.setMat4("model", model);
-	light.Draw(sourceShader);
+	light.Draw(ourShader);
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, pos + size + glm::vec3(-4.0f, 1.0f, -3.0f));
@@ -115,7 +115,7 @@ void Building::draw(Shader ourShader, int num, Shader sourceShader) {
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 315.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	ourShader.setMat4("model", model);
-	light.Draw(sourceShader);
+	light.Draw(ourShader);
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, pos + glm::vec3(-size[2] + 4.5f, 201.0f, size[2] - 3.0f));
@@ -123,7 +123,7 @@ void Building::draw(Shader ourShader, int num, Shader sourceShader) {
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 45.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	ourShader.setMat4("model", model);
-	light.Draw(sourceShader);
+	light.Draw(ourShader);
 
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, pos + glm::vec3(size[2] - 4.5f, 200.0f, -size[2] + 3.0f));
@@ -131,7 +131,7 @@ void Building::draw(Shader ourShader, int num, Shader sourceShader) {
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 225.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	ourShader.setMat4("model", model);
-	light.Draw(sourceShader);
+	light.Draw(ourShader);
 
 	if (type == 1) {
 		// vents

@@ -111,7 +111,6 @@ int main() {
 
     // load shaders and create shader object
     Shader lightingShader("model.vs", "model.fs");
-    Shader lightSourceShader("lightSource.vs", "lightSource.fs");
 
     // load model and create model object
     Model crate("resources/models/Crate/Crate1.obj");
@@ -163,7 +162,6 @@ int main() {
         float ambientValue = 0.3f;
         lightingShader.use();
         lightingShader.setVec3("viewPos", myCam.getPos());
-        lightingShader.setFloat("material.shininess", 32.0f);
         lightingShader.setVec3("amb", ambientValue, ambientValue, ambientValue);
 
         // model, view and projection matrices setup
@@ -174,10 +172,10 @@ int main() {
         glm::mat4 model = glm::mat4(1.0f);
 
         //building
-        building1.draw(lightingShader, 0, lightSourceShader);
-        building2.draw(lightingShader, 4, lightSourceShader);
-        building3.draw(lightingShader, 8, lightSourceShader);
-        building4.draw(lightingShader, 12, lightSourceShader);
+        building1.draw(lightingShader, 0);
+        building2.draw(lightingShader, 4);
+        building3.draw(lightingShader, 8);
+        building4.draw(lightingShader, 12);
 
         // boxes
         model = glm::mat4(1.0f);

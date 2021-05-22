@@ -24,7 +24,7 @@ class Building {
 	public:
 		Collision building_col;
 		Building(glm::vec3 pos, int type, glm::vec3 size = glm::vec3(50.0f, 200.0f, 50.0f));
-		void draw(Shader ourShader, int num, Shader sourceShader);
+		void draw(Shader ourShader, int num);
 };
 
 

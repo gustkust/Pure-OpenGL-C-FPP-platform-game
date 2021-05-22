@@ -17,6 +17,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+
 using namespace std;
 
 
@@ -28,16 +29,12 @@ public:
 
     vector<Mesh> meshes;
     string directory;
-    bool gammaCorrection;
 
-    Model(string const& path, bool gamma = false);
+    Model(string const& path);
     void Draw(Shader& shader);
 private:
-
     void processNode(aiNode* node, const aiScene* scene);
-
     Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-
     vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
 };
 

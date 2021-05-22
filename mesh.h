@@ -12,7 +12,7 @@
 using namespace std;
 
 
-// vertex representatnion
+// each vertex consists of position, normal and texcoords vector
 struct Vertex {
     glm::vec3 Position;
     glm::vec3 Normal;
@@ -20,7 +20,7 @@ struct Vertex {
 };
 
 
-// texture representation
+// each texture consists of id, type (used in lighting - diffuse, specularetc.) and path to it
 struct Texture {
     unsigned int id;
     string type;
@@ -28,24 +28,19 @@ struct Texture {
 };
 
 
+// mesh is a submodel of the big model
 class Mesh {
 public:
     // mesh data
     vector<Vertex>       vertices;
-    vector<unsigned int> indices;
+    vector<int> indices;
     vector<Texture>      textures;
-    unsigned int VAO;
-
     // constructor
-    Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
-
+    Mesh(vector<Vertex> vertices, vector<int> indices, vector<Texture> textures);
     // drawing
     void Draw(Shader& shader);
-
 private:
-    // render data 
-    unsigned int VBO, EBO;
-
+    unsigned int VAO;
 };
 
 
