@@ -19,7 +19,7 @@ using namespace std;
 struct Vertex {
     aiVector3D Position;
     aiVector3D Normal;
-    glm::vec2 TexCoords;
+    aiVector3D TexCoords;
 };
 
 

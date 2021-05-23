@@ -54,7 +54,7 @@ void Model::Draw(Shader shader) {
 
 // transforming aiMesh to Mesh class
 Mesh Model::processMesh(aiMesh* aiM, const aiScene* scene) {
-    //Mesh parameters
+    // mesh parameters
     vector<Vertex> vertices;
     vector<int> indices;
     vector<Texture> textures;
@@ -63,28 +63,24 @@ Mesh Model::processMesh(aiMesh* aiM, const aiScene* scene) {
     for (int i = 0; i < aiM->mNumVertices; i++) {
         Vertex vertex;
         // vertices
-        aiVector3D tmp1;
-        tmp1 = aiM->mVertices[i];
-        vertex.Position = tmp1;
-        
+        vertex.Position = aiM->mVertices[i];
         // normals
         if (aiM->HasNormals()) {
-            tmp1 = aiM->mNormals[i];
-            vertex.Normal = tmp1;
+            vertex.Normal = aiM->mNormals[i];
         }
-
-        glm::vec2 tmp2;
-        tmp2.x = aiM->mTextureCoords[0][i].x;
-        tmp2.y = aiM->mTextureCoords[0][i].y;
-        vertex.TexCoords = tmp2;
+        // texCoords
+        vertex.TexCoords = aiM->mTextureCoords[0][i];
 
         vertices.push_back(vertex);
     }
 
-    // getting indices face by face
+    // getting indices
     for (int i = 0; i < aiM->mNumFaces; i++) {
         aiFace face = aiM->mFaces[i];
-        for (int j = 0; j < face.mNumIndices; j++) indices.push_back(face.mIndices[j]);
+        for (int j = 0; j < face.mNumIndices; j++) {
+            int tmp = face.mIndices[j];
+            indices.push_back(tmp);
+        }
     }
 
     // aiMaterial object to store scene material list (which is at the mMaterialIndex index)
@@ -103,7 +99,8 @@ Mesh Model::processMesh(aiMesh* aiM, const aiScene* scene) {
     return Mesh(vertices, indices, textures);
 }
 
-// gets textures info
+
+// geting textures informations (we are looking for specular or/and diffusal textures)
 vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName) {
     vector<Texture> textures;
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
