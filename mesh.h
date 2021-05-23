@@ -5,6 +5,9 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 #include <Shader.h>
 #include <string>
 #include <vector>
@@ -14,8 +17,8 @@ using namespace std;
 
 // each vertex consists of position, normal and texcoords vector
 struct Vertex {
-    glm::vec3 Position;
-    glm::vec3 Normal;
+    aiVector3D Position;
+    aiVector3D Normal;
     glm::vec2 TexCoords;
 };
 
@@ -33,7 +36,7 @@ class Mesh {
 public:
     // mesh data
     vector<Vertex>       vertices;
-    vector<int> indices;
+    vector<int>          indices;
     vector<Texture>      textures;
     // constructor
     Mesh(vector<Vertex> vertices, vector<int> indices, vector<Texture> textures);

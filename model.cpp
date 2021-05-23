@@ -38,30 +38,17 @@ Model::Model(string const& path) {
     // reading directory
     directory = path.substr(0, path.find_last_of('/'));
 
-    // processing nodes starting from root node
-    processNode(scene->mRootNode, scene);
+    // transforming aiMeshes into mesh objects and pushing them to the vector
+    for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
+        aiMesh* mesh = scene->mMeshes[i];
+        Mesh tmp = processMesh(mesh, scene);
+        meshes.push_back(tmp);
+    }
 }
 
 // drawing mesh by mesh
-void Model::Draw(Shader& shader) {
+void Model::Draw(Shader shader) {
     for (unsigned int i = 0; i < meshes.size(); i++) meshes[i].Draw(shader);
-}
-
-
-// processes every node (recursively) mesh by mesh
-void Model::processNode(aiNode* node, const aiScene* scene) {
-    // each node consists of some number of meshes
-    for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-        // getting mesh from scene
-        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        // transforming aimesh into mesh and putting it in the meshes vector
-        meshes.push_back(processMesh(mesh, scene));
-    }
-    // processing children nodes
-    for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        processNode(node->mChildren[i], scene);
-    }
-
 }
 
 
@@ -72,19 +59,17 @@ Mesh Model::processMesh(aiMesh* aiM, const aiScene* scene) {
     vector<int> indices;
     vector<Texture> textures;
 
-    // putting vertex, normals and texCoords into vectors
+    // putting vertices, normals and texCoords into vertex type struct
     for (int i = 0; i < aiM->mNumVertices; i++) {
         Vertex vertex;
-        glm::vec3 tmp1;
-        tmp1.x = aiM->mVertices[i].x;
-        tmp1.y = aiM->mVertices[i].y;
-        tmp1.z = aiM->mVertices[i].z;
+        // vertices
+        aiVector3D tmp1;
+        tmp1 = aiM->mVertices[i];
         vertex.Position = tmp1;
         
+        // normals
         if (aiM->HasNormals()) {
-            tmp1.x = aiM->mNormals[i].x;
-            tmp1.y = aiM->mNormals[i].y;
-            tmp1.z = aiM->mNormals[i].z;
+            tmp1 = aiM->mNormals[i];
             vertex.Normal = tmp1;
         }
 
