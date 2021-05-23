@@ -51,7 +51,7 @@ void Mesh::Draw(Shader& shader) {
             shining++;
             index = std::to_string(shining);
         }
-        // sending info to shader
+        // sending info about every texture diffuse and specular value to the shader
         glUniform1i(glGetUniformLocation(shader.ID, (type + index).c_str()), i);
         // binding texture
         glBindTexture(GL_TEXTURE_2D, textures[i].id);

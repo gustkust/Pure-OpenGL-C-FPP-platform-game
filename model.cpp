@@ -99,8 +99,7 @@ Mesh Model::processMesh(aiMesh* aiM, const aiScene* scene) {
     return Mesh(vertices, indices, textures);
 }
 
-
-// geting textures informations (we are looking for specular or/and diffusal textures)
+// geting textures informations (we are looking for specular or/and diffusal textures
 vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName) {
     vector<Texture> textures;
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
