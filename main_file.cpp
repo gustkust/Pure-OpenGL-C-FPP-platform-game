@@ -155,7 +155,7 @@ int main() {
 
     // starting shader setup
     lightingShader.use();
-    lightingShader.setInt("value", 0);
+    glUniform1i(glGetUniformLocation(lightingShader.ID, "value"), 0);
 
     // main loop
     while (!glfwWindowShouldClose(window)) {
@@ -180,14 +180,14 @@ int main() {
         // shader ambient and view matrix setup
         float ambientValue = 0.3f;
         lightingShader.use();
-        lightingShader.setVec3("viewPos", myCam.getPos());
-        lightingShader.setVec3("amb", ambientValue, ambientValue, ambientValue);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "viewPos"), myCam.getPos().x, myCam.getPos().y, myCam.getPos().z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "amb"), ambientValue, ambientValue, ambientValue);
 
         // model, view and projection matrices setup
         glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 6000.0f);
         glm::mat4 view = myCam.getV();
-        lightingShader.setMat4("projection", projection);
-        lightingShader.setMat4("view", view);
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
         glm::mat4 model = glm::mat4(1.0f);
 
         // draw buildings
@@ -206,7 +206,7 @@ int main() {
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(175.0f, boxPos1 - 20.0f, 475.0f)); // moving box
         model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
-        lightingShader.setMat4("model", model);
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
         crate.Draw(lightingShader);
         // update box 1 position
         if (boxPos1 >= boxPosRange1 || boxPos1 <= -boxPosRange1) boxPosChange1 *= -1;
@@ -216,7 +216,7 @@ int main() {
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(boxPos2 - 200.0f, -20.0f, 435.0f)); // moving box
         model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
-        lightingShader.setMat4("model", model);
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
         crate.Draw(lightingShader);
         // update box 1 position
         if (boxPos2 >= boxPosRange2 || boxPos2 <= -boxPosRange2) boxPosChange2 *= -1;

@@ -53,26 +53,38 @@ Building::Building(glm::vec3 pos, int type, glm::vec3 size) {
 }
 
 void Building::draw(Shader ourShader, int num) {
-	string number = to_string(num);
-	ourShader.setVec3("position[" + number + "]", pos - size + glm::vec3(4.0f, 400.0f, 3.0f));
-	num += 1;
+	glm::vec3 tmp;
+	string number;
+
+	// light 1
 	number = to_string(num);
-	// point light 2
-	ourShader.setVec3("position[" + number + "]", pos + size + glm::vec3(-4.0f, 1.0f, -3.0f));
+	tmp = pos - size + glm::vec3(4.0f, 400.0f, 3.0f);
+	glUniform3f(glGetUniformLocation(ourShader.ID, (string("position[") + number + "]").c_str()), tmp.x, tmp.y, tmp.z);
 	num += 1;
+
+	// light 2
 	number = to_string(num);
-	// point light 3
-	ourShader.setVec3("position[" + number + "]", pos + glm::vec3(-size[0] + 4.5f, 201.0f, size[2] - 3.0f));
+	tmp = pos + size + glm::vec3(-4.0f, 1.0f, -3.0f);
+	glUniform3f(glGetUniformLocation(ourShader.ID, (string("position[") + number + "]").c_str()), tmp.x, tmp.y, tmp.z);
 	num += 1;
+
+	// light 3
 	number = to_string(num);
-	// point light 4
-	ourShader.setVec3("position[" + number + "]", pos + glm::vec3(size[0] - 4.5f, 200.0f, -size[2] + 3.0f));
+	tmp = pos + glm::vec3(-size[0] + 4.5f, 201.0f, size[2] - 3.0f);
+	glUniform3f(glGetUniformLocation(ourShader.ID, (string("position[") + number + "]").c_str()), tmp.x, tmp.y, tmp.z);
+	num += 1;
+
+	// light 4
+	number = to_string(num);
+	tmp = pos + glm::vec3(size[0] - 4.5f, 200.0f, -size[2] + 3.0f);
+	glUniform3f(glGetUniformLocation(ourShader.ID, (string("position[") + number + "]").c_str()), tmp.x, tmp.y, tmp.z);
+
 	// building
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, pos);
 	model = glm::scale(model, size);
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-	ourShader.setMat4("model", model);
+	glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	model1.Draw(ourShader);
 
 	// light sources
@@ -81,7 +93,7 @@ void Building::draw(Shader ourShader, int num) {
 	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 135.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ourShader.setMat4("model", model);
+	glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	light.Draw(ourShader);
 
 	model = glm::mat4(1.0f);
@@ -89,7 +101,7 @@ void Building::draw(Shader ourShader, int num) {
 	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 315.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ourShader.setMat4("model", model);
+	glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	light.Draw(ourShader);
 
 	model = glm::mat4(1.0f);
@@ -97,7 +109,7 @@ void Building::draw(Shader ourShader, int num) {
 	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 45.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ourShader.setMat4("model", model);
+	glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	light.Draw(ourShader);
 
 	model = glm::mat4(1.0f);
@@ -105,7 +117,7 @@ void Building::draw(Shader ourShader, int num) {
 	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 225.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ourShader.setMat4("model", model);
+	glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	light.Draw(ourShader);
 
 	if (type == 1) {
@@ -113,26 +125,26 @@ void Building::draw(Shader ourShader, int num) {
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + size + glm::vec3(-45.0f, -2.0f, -25.0f));
 		model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model2.Draw(ourShader);
 
 		// solar panel
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos - size + glm::vec3(15.0f, 400.0f, 15.0f));
 		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model3.Draw(ourShader);
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos - size + glm::vec3(32.0f, 400.0f, 15.0f));
 		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model3.Draw(ourShader);
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos - size + glm::vec3(49.0f, 400.0f, 15.0f));
 		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model3.Draw(ourShader);
 	}
 	else if (type == 2) {
@@ -140,14 +152,14 @@ void Building::draw(Shader ourShader, int num) {
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(0.0f, 190.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model2.Draw(ourShader);
 
 		// helicopter
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(0.0f, 211.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model3.Draw(ourShader);
 	}
 	else if (type == 3) {
@@ -155,52 +167,52 @@ void Building::draw(Shader ourShader, int num) {
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(0.0f, 200.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model2.Draw(ourShader);
 
 		// palms
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos - size + glm::vec3(15.0f, 400.0f, 15.0f)); // -85,-85
 		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model3.Draw(ourShader);
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + size + glm::vec3(-15.0f, 0.0f, -15.0f)); // 85, 85
 		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model3.Draw(ourShader);
 
 		// plants
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(-size[0] + 15.0f, 200.0f, size[2] - 15.0f));
 		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model4.Draw(ourShader);
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(size[0] - 15.0f, 200.0f, -size[2] + 15.0f));
 		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model4.Draw(ourShader);
 	}
 	else if (type == 4) {
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(size[0] - 15.0f, 200.0f, -size[2] + 15.0f));
 		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model2.Draw(ourShader);
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(size[0] - 25.0f, 201.0f, -size[2] + 15.0f));
 		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model3.Draw(ourShader);
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, pos + glm::vec3(-size[0] + 15.0f, 201.0f, size[2] - 15.0f));
 		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
-		ourShader.setMat4("model", model);
+		glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		model4.Draw(ourShader);
 	}
 }

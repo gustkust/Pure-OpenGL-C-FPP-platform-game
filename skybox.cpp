@@ -105,8 +105,8 @@ void Skybox::draw(glm::mat4 view, glm::mat4 projection) {
     skyboxShader.use();
     view = glm::mat4(glm::mat3(view));
     // always generating skybox at the camera position
-    skyboxShader.setMat4("view", view);
-    skyboxShader.setMat4("projection", projection);
+    glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
     // drawing
     glBindVertexArray(this->VAO);
     glActiveTexture(GL_TEXTURE0);
