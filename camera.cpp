@@ -2,8 +2,7 @@
 
 
 void Camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
-	if (firstMouse)
-	{
+	if (firstMouse) {
 		lastX = xPos;
 		lastY = yPos;
 	}
@@ -16,6 +15,7 @@ void Camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
 	xOffset *= sensitivity;
 	yOffset *= sensitivity;
 
+	// yaw and pitch are angles used to calculate front vector
 	yaw += xOffset;
 	pitch += yOffset;
 
@@ -24,6 +24,8 @@ void Camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
 	if (pitch < -89.0f)
 		pitch = -89.0f;
 
+	// calculating new front vector using eulers angles
+	// yaw to calculate up/down combined with pitch to calculate left/right
 	glm::vec3 newFront;
 	newFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	newFront.y = sin(glm::radians(pitch));
@@ -32,10 +34,11 @@ void Camera::mouseMovement(float xPos, float yPos, bool firstMouse) {
 }
 
 
-void Camera::positionChange(float deltaTime, Collision boxes[12])
-{
+void Camera::positionChange(float deltaTime, Collision boxes[12]) {
+	// moving forward/backward
 	pos += speedForward * front;
 	pos -= speedBackward * front;
+	// strifing
 	pos -= glm::normalize(glm::cross(front, up)) * speedLeft;
 	pos += glm::normalize(glm::cross(front, up)) * speedRight;
 
@@ -116,10 +119,10 @@ void Camera::changeSensitivity(float newValue) {
 
 glm::mat4 Camera::getV() {
 	cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
-	//return glm::lookAt(pos, pos + front, up);
-	// To get FPS camera use instead:
+	
+	// lookAt with pos, pos + front, up
 	if (!crouch) return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z) + front, up);
-	return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight - 1, pos.z) + front, up);
+	return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight - 2, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight - 2, pos.z) + front, up);
 }
 
 
