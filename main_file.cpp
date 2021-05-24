@@ -181,7 +181,7 @@ int main() {
         float ambientValue = 0.3f;
         lightingShader.use();
         glUniform3f(glGetUniformLocation(lightingShader.ID, "viewPos"), myCam.getPos().x, myCam.getPos().y, myCam.getPos().z);
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "amb"), ambientValue, ambientValue, ambientValue);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "ambient"), ambientValue, ambientValue, ambientValue);
 
         // model, view and projection matrices setup
         glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 6000.0f);
