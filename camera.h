@@ -22,7 +22,7 @@ private:
 	float lastX = 800.0f / 2.0;
 	float lastY = 600.0 / 2.0;
 	float fov = 45.0f;
-	float cameraHeight = 5;
+	float cameraHeight = 7;
 
 	float sensitivity = 0.1f;
 

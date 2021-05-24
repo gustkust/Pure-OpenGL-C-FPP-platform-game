@@ -14,7 +14,9 @@ class Shader
 {
 public:
     unsigned int ID;
-    Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
+    Shader(const char* vertexPath, const char* fragmentPath);
+    char* readFile(const char* fileName);
+    GLuint loadShader(GLenum shaderType, const char* fileName);
     void use();
     Shader();
 private:
