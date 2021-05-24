@@ -31,17 +31,17 @@ struct Texture {
 };
 
 
-// mesh is a submodel of the big model
 class Mesh {
 public:
     // mesh data
     vector<Vertex>       vertices;
     vector<int>          indices;
     vector<Texture>      textures;
+
     // constructor
     Mesh(vector<Vertex> vertices, vector<int> indices, vector<Texture> textures);
-    // drawing
-    void Draw(Shader& shader);
+
+    void Draw(Shader shader);
 private:
     unsigned int VAO;
 };

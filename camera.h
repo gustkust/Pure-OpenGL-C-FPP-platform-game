@@ -14,7 +14,7 @@ using namespace std;
 class Camera {
 private:
 	glm::vec3 pos = glm::vec3(0.0f, 0.0f, 3.0f);
-	glm::vec3 front = glm::vec3(0.0f, 0.0f, 1.0f);
+	glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	float yaw = -90.0f;
@@ -43,7 +43,7 @@ private:
 
 public:
 	void mouseMovement(float xPos, float yPos, bool firstMouse = false);
-	void positionChange(float deltaTime, Collision boxes[3]);
+	void positionChange(float deltaTime, Collision boxes[12]);
 	void jump(bool keepJumping);
 	void newCrouch(bool keepCrouch);
 
@@ -62,7 +62,7 @@ public:
 	glm::mat4 getV();
 
 	Camera(glm::vec3 newPos = glm::vec3(0.0f, 2.0f, 3.0f),
-		glm::vec3 newFront = glm::vec3(0.0f, 0.0f, 1.0f),
+		glm::vec3 newFront = glm::vec3(0.0f, 0.0f, -1.0f),
 		glm::vec3 newUp = glm::vec3(0.0f, 1.0f, 0.0f),
 		float newYaw = -90.0f, float newPitch = 0.0f,
 		float newFov = 45.0f, float newSensitivity = 0.1f,

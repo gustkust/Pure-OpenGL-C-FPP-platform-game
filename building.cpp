@@ -75,7 +75,7 @@ void Building::draw(Shader ourShader, int num) {
 	num += 1;
 	number = to_string(num);
 	// point light 3
-	ourShader.setVec3("pointLights[" + number + "].position", pos + glm::vec3(-size[2] + 4.5f, 201.0f, size[2] - 3.0f));
+	ourShader.setVec3("pointLights[" + number + "].position", pos + glm::vec3(-size[0] + 4.5f, 201.0f, size[2] - 3.0f));
 	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
 	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
 	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
@@ -85,7 +85,7 @@ void Building::draw(Shader ourShader, int num) {
 	num += 1;
 	number = to_string(num);
 	// point light 4
-	ourShader.setVec3("pointLights[" + number + "].position", pos + glm::vec3(size[2] - 4.5f, 200.0f, -size[2] + 3.0f));
+	ourShader.setVec3("pointLights[" + number + "].position", pos + glm::vec3(size[0] - 4.5f, 200.0f, -size[2] + 3.0f));
 	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
 	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
 	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
@@ -118,7 +118,7 @@ void Building::draw(Shader ourShader, int num) {
 	light.Draw(ourShader);
 
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, pos + glm::vec3(-size[2] + 4.5f, 201.0f, size[2] - 3.0f));
+	model = glm::translate(model, pos + glm::vec3(-size[0] + 4.5f, 201.0f, size[2] - 3.0f));
 	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 45.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -126,7 +126,7 @@ void Building::draw(Shader ourShader, int num) {
 	light.Draw(ourShader);
 
 	model = glm::mat4(1.0f);
-	model = glm::translate(model, pos + glm::vec3(size[2] - 4.5f, 200.0f, -size[2] + 3.0f));
+	model = glm::translate(model, pos + glm::vec3(size[0] - 4.5f, 200.0f, -size[2] + 3.0f));
 	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
 	model = glm::rotate(model, 270.0f * 3.14f / 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model = glm::rotate(model, 225.0f * 3.14f / 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -198,32 +198,32 @@ void Building::draw(Shader ourShader, int num) {
 
 		// plants
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, pos + glm::vec3(-size[2]+15.0f, 200.0f, size[2]-15.0f));
+		model = glm::translate(model, pos + glm::vec3(-size[0] + 15.0f, 200.0f, size[2] - 15.0f));
 		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
 		ourShader.setMat4("model", model);
 		model4.Draw(ourShader);
 
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, pos + glm::vec3(size[2] - 15.0f, 200.0f, -size[2] + 15.0f));
+		model = glm::translate(model, pos + glm::vec3(size[0] - 15.0f, 200.0f, -size[2] + 15.0f));
 		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
 		ourShader.setMat4("model", model);
 		model4.Draw(ourShader);
 	}
 	else if (type == 4) {
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, pos + glm::vec3(size[2] - 15.0f, 200.0f, -size[2] + 15.0f));
+		model = glm::translate(model, pos + glm::vec3(size[0] - 15.0f, 200.0f, -size[2] + 15.0f));
 		model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
 		ourShader.setMat4("model", model);
 		model2.Draw(ourShader);
 
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, pos + glm::vec3(size[2] - 25.0f, 201.0f, -size[2] + 15.0f));
+		model = glm::translate(model, pos + glm::vec3(size[0] - 25.0f, 201.0f, -size[2] + 15.0f));
 		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
 		ourShader.setMat4("model", model);
 		model3.Draw(ourShader);
 
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, pos + glm::vec3(-size[2] + 15.0f, 201.0f, size[2] - 15.0f));
+		model = glm::translate(model, pos + glm::vec3(-size[0] + 15.0f, 201.0f, size[2] - 15.0f));
 		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
 		ourShader.setMat4("model", model);
 		model4.Draw(ourShader);

@@ -32,32 +32,17 @@ Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, vector<Texture> texture
 }
 
 
-void Mesh::Draw(Shader& shader) {
-    // binding textures
-    // current number of diffuse textures and shining (specular) textures
-    int diffuse = 0;
-    int shining = 0;
+void Mesh::Draw(Shader shader) {
+    // setting every texture
     for (int i = 0; i < textures.size(); i++) {
         // activating current texture
         glActiveTexture(GL_TEXTURE0 + i);
-        string index;
         string type = textures[i].type;
-        // checking for type
-        if (type == "texture_diffuse") {
-            diffuse++;
-            index = std::to_string(diffuse);
-        }
-        else if (type == "texture_specular") {
-            shining++;
-            index = std::to_string(shining);
-        }
-        // sending info about every texture diffuse and specular value to the shader
-        glUniform1i(glGetUniformLocation(shader.ID, (type + index).c_str()), i);
+        // sending info about texture diffuse or specular type to the shader
+        shader.setFloat(("material." + type).c_str(), 1);
         // binding texture
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
-    // setting texture back to default
-    glActiveTexture(GL_TEXTURE0);
 
     // drawing
     glBindVertexArray(VAO);

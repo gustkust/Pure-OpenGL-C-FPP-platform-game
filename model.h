@@ -24,8 +24,7 @@ using namespace std;
 class Model {
 public:
     Model();
-    // all textures already loaded
-    vector<Texture> textures_loaded;
+    
 
     vector<Mesh> meshes;
     string directory;
@@ -33,8 +32,8 @@ public:
     Model(string const& path);
     void Draw(Shader shader);
 private:
-    Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-    vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
+    Mesh transformMesh(aiMesh* mesh, const aiScene* scene);
+    vector<Texture> loadTextures(aiMaterial* mat, aiTextureType type, string typeName);
 };
 
 

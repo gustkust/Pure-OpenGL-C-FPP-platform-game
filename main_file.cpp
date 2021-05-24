@@ -112,10 +112,10 @@ int main() {
     // load shaders and create shader object
     Shader lightingShader("model.vs", "model.fs");
 
-    // load model and create model object
+    // load platforms
     Model crate("resources/models/Crate/Crate1.obj");
-    Model light("resources/models/Light/3d-model.obj");
 
+    // load buildings
     Building building1(glm::vec3(0.0f, -215.0f, 0.0f), 1);
     Building building2(glm::vec3(150.0f, -215.0f, 0.0f), 2);
     Building building3(glm::vec3(150.0f, -245.0f, 150.0f), 3);
@@ -125,16 +125,13 @@ int main() {
     Building building7(glm::vec3(-200.0f, -215.0f, 525.0f), 3);
     Building building8(glm::vec3(-200.0f, -245.0f, 325.0f), 4, glm::vec3(75.0f, 200.0f, 75.0f));
     Building building9(glm::vec3(-150.0f, -235.0f, 175.0f), 1);
-    Building building10(glm::vec3(-125.0f, -225.0f, 0.0f), 2, glm::vec3(50.0f, 200.0f, 100.0f));
-
+    Building building10(glm::vec3(-125.0f, -225.0f, 0.0f), 3, glm::vec3(50.0f, 200.0f, 100.0f));
+    // ^ it could be made better with loading only one building of each type and then coping it, instead of loading each builing separetly 
 
     // load skybox
     Skybox citySkybox;
-
-    // two static boxes
-    /*Collision box1(glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(10.0f, 1.0f, 10.0f));
-    Collision box3(glm::vec3(0.0f, -10.0f, -60.0f), glm::vec3(10.0f, 1.0f, 10.0f));*/
     
+    // set buildings collisions
     Collision boxes[12];
     boxes[0] = building1.building_col;
     boxes[1] = building2.building_col;
@@ -147,38 +144,41 @@ int main() {
     boxes[10] = building9.building_col;
     boxes[11] = building10.building_col;
 
-    //boxes[4] = box1;
-    //boxes[5] = box3;
-
-    float boxPos1 = 0.0f; // additional possition of current box
+    // platforms movement
+    float boxPos1 = 0.0f; // current additional possition of the box
     float boxPosChange1 = 0.8f; // change of boxPos per frame
     float boxPosRange1 = 80.0f; // range of boxPos
 
-    float boxPos2 = 0.0f; // additional possition of current box
+    float boxPos2 = 0.0f; // current additional possition of the box
     float boxPosChange2 = 0.6f; // change of boxPos per frame
     float boxPosRange2 = 100.0f; // range of boxPos
-    // main loop
 
+    // starting shader setup
     lightingShader.use();
     lightingShader.setInt("material.diffuse", 0);
     lightingShader.setInt("material.specular", 1);
+
+    // main loop
     while (!glfwWindowShouldClose(window)) {
 
-        // moving box
+        // moving boxes collisions setup
         Collision box1(glm::vec3(175.0f, boxPos1 - 20.0f, 475.0f), glm::vec3(10.0f, 1.0f, 10.0f), glm::vec3(0.0f, boxPosChange1, 0.0f));
         boxes[5] = box1;
         Collision box2(glm::vec3(boxPos2 - 200.0f, -20.0f, 435.0f), glm::vec3(10.0f, 1.0f, 10.0f), glm::vec3(boxPosChange2, 0.0f, 0.0f));
         boxes[8] = box2;
 
+        // time passed calculation
         float thisTime = glfwGetTime();
         deltaTime = thisTime - lastTime;
         lastTime = thisTime;
 
+        // clear buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // update camera position
         myCam.positionChange(deltaTime, boxes);
 
-        // shader constants
+        // shader ambient and view matrix setup
         float ambientValue = 0.3f;
         lightingShader.use();
         lightingShader.setVec3("viewPos", myCam.getPos());
@@ -191,7 +191,7 @@ int main() {
         lightingShader.setMat4("view", view);
         glm::mat4 model = glm::mat4(1.0f);
 
-        //building
+        // draw buildings
         building1.draw(lightingShader, 0);
         building2.draw(lightingShader, 4);
         building3.draw(lightingShader, 8);
@@ -203,29 +203,30 @@ int main() {
         building9.draw(lightingShader, 32);
         building10.draw(lightingShader, 36);
 
-        // box 1
+        // draw box 1
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(175.0f, boxPos1 - 20.0f, 475.0f)); // moving box
         model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
         lightingShader.setMat4("model", model);
         crate.Draw(lightingShader);
-        // update boxPos
+        // update box 1 position
         if (boxPos1 >= boxPosRange1 || boxPos1 <= -boxPosRange1) boxPosChange1 *= -1;
         boxPos1 += boxPosChange1;
 
-        // box 2
+        // draw box 2
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(boxPos2 - 200.0f, -20.0f, 435.0f)); // moving box
         model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
         lightingShader.setMat4("model", model);
         crate.Draw(lightingShader);
-        // update boxPos
+        // update box 1 position
         if (boxPos2 >= boxPosRange2 || boxPos2 <= -boxPosRange2) boxPosChange2 *= -1;
         boxPos2 += boxPosChange2;
 
-        // skybox
+        // draw skybox
         citySkybox.draw(view, projection);
 
+        // swap buffers and check for events
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
