@@ -150,7 +150,7 @@ int main() {
     float boxPosRange1 = 80.0f; // range of boxPos
 
     float boxPos2 = 0.0f; // current additional possition of the box
-    float boxPosChange2 = 0.6f; // change of boxPos per frame
+    float boxPosChange2 = 0.4f; // change of boxPos per frame
     float boxPosRange2 = 100.0f; // range of boxPos
 
     // starting shader setup
