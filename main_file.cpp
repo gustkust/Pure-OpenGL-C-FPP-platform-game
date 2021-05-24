@@ -155,8 +155,7 @@ int main() {
 
     // starting shader setup
     lightingShader.use();
-    lightingShader.setInt("material.diffuse", 0);
-    lightingShader.setInt("material.specular", 1);
+    lightingShader.setInt("value", 0);
 
     // main loop
     while (!glfwWindowShouldClose(window)) {

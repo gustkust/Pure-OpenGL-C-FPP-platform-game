@@ -33,13 +33,10 @@ Mesh::Mesh(vector<Vertex> vertices, vector<int> indices, vector<Texture> texture
 
 
 void Mesh::Draw(Shader shader) {
-    // setting every texture
+    // setting every texture (usually 1)
     for (int i = 0; i < textures.size(); i++) {
         // activating current texture
         glActiveTexture(GL_TEXTURE0 + i);
-        string type = textures[i].type;
-        // sending info about texture diffuse or specular type to the shader
-        shader.setFloat(("material." + type).c_str(), 1);
         // binding texture
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }

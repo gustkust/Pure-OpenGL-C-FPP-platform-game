@@ -34,9 +34,9 @@ struct Texture {
 class Mesh {
 public:
     // mesh data
-    vector<Vertex>       vertices;
-    vector<int>          indices;
-    vector<Texture>      textures;
+    vector<Vertex> vertices;
+    vector<int> indices;
+    vector<Texture> textures;
 
     // constructor
     Mesh(vector<Vertex> vertices, vector<int> indices, vector<Texture> textures);

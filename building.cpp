@@ -53,45 +53,20 @@ Building::Building(glm::vec3 pos, int type, glm::vec3 size) {
 }
 
 void Building::draw(Shader ourShader, int num) {
-	float ambientValue = 0.1f;
 	string number = to_string(num);
-	ourShader.setVec3("pointLights[" + number + "].position", pos - size + glm::vec3(4.0f, 400.0f, 3.0f));
-	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
-	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
-	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
-	ourShader.setFloat("pointLights[" + number + "].constant", 1.0f);
-	ourShader.setFloat("pointLights[" + number + "].linear", 0.018);
-	ourShader.setFloat("pointLights[" + number + "].quadratic", 0.001);
+	ourShader.setVec3("position[" + number + "]", pos - size + glm::vec3(4.0f, 400.0f, 3.0f));
 	num += 1;
 	number = to_string(num);
 	// point light 2
-	ourShader.setVec3("pointLights[" + number + "].position", pos + size + glm::vec3(-4.0f, 1.0f, -3.0f));
-	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
-	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
-	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
-	ourShader.setFloat("pointLights[" + number + "].constant", 1.0f);
-	ourShader.setFloat("pointLights[" + number + "].linear", 0.018);
-	ourShader.setFloat("pointLights[" + number + "].quadratic", 0.001);
+	ourShader.setVec3("position[" + number + "]", pos + size + glm::vec3(-4.0f, 1.0f, -3.0f));
 	num += 1;
 	number = to_string(num);
 	// point light 3
-	ourShader.setVec3("pointLights[" + number + "].position", pos + glm::vec3(-size[0] + 4.5f, 201.0f, size[2] - 3.0f));
-	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
-	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
-	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
-	ourShader.setFloat("pointLights[" + number + "].constant", 1.0f);
-	ourShader.setFloat("pointLights[" + number + "].linear", 0.018);
-	ourShader.setFloat("pointLights[" + number + "].quadratic", 0.001);
+	ourShader.setVec3("position[" + number + "]", pos + glm::vec3(-size[0] + 4.5f, 201.0f, size[2] - 3.0f));
 	num += 1;
 	number = to_string(num);
 	// point light 4
-	ourShader.setVec3("pointLights[" + number + "].position", pos + glm::vec3(size[0] - 4.5f, 200.0f, -size[2] + 3.0f));
-	ourShader.setVec3("pointLights[" + number + "].ambient", ambientValue, ambientValue, ambientValue);
-	ourShader.setVec3("pointLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
-	ourShader.setVec3("pointLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
-	ourShader.setFloat("pointLights[" + number + "].constant", 1.0f);
-	ourShader.setFloat("pointLights[" + number + "].linear", 0.018);
-	ourShader.setFloat("pointLights[" + number + "].quadratic", 0.001);
+	ourShader.setVec3("position[" + number + "]", pos + glm::vec3(size[0] - 4.5f, 200.0f, -size[2] + 3.0f));
 	// building
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, pos);
