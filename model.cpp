@@ -123,7 +123,6 @@ vector<Texture> Model::loadTextures(aiMaterial* mat, aiTextureType type, string 
             Texture texture;
             string textureName = this->directory + '/' + string(tmp.C_Str());
             texture.id = loadTexture(textureName);
-            texture.type = typeName;
             texture.path = tmp.C_Str();
             textures.push_back(texture);
             loadedTetures.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.

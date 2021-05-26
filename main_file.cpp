@@ -111,25 +111,38 @@ int main() {
 
     // load shaders and create shader object
     Shader lightingShader("model.vs", "model.fs");
+    cout << "Loaded shader." << endl;
 
     // load platforms
     Model crate("resources/models/Crate/Crate1.obj");
+    cout << "Loaded platforms." << endl;
 
     // load buildings
     Building building1(glm::vec3(0.0f, -215.0f, 0.0f), 1);
+    cout << "Loaded building 1." << endl;
     Building building2(glm::vec3(150.0f, -215.0f, 0.0f), 2);
+    cout << "Loaded building 2." << endl;
     Building building3(glm::vec3(150.0f, -245.0f, 150.0f), 3);
+    cout << "Loaded building 3." << endl;
     Building building4(glm::vec3(150.0f, -275.0f, 350.0f), 4, glm::vec3(100.0f, 200.0f, 100.0f));
+    cout << "Loaded building 4." << endl;
     Building building5(glm::vec3(200.0f, -215.0f, 550.0f), 1);
+    cout << "Loaded building 5." << endl;
     Building building6(glm::vec3(0.0f, -215.0f, 525.0f), 2, glm::vec3(100.0f, 200.0f, 50.0f));
+    cout << "Loaded building 6." << endl;
     Building building7(glm::vec3(-200.0f, -215.0f, 525.0f), 3);
+    cout << "Loaded building 7." << endl;
     Building building8(glm::vec3(-200.0f, -245.0f, 325.0f), 4, glm::vec3(75.0f, 200.0f, 75.0f));
+    cout << "Loaded building 8." << endl;
     Building building9(glm::vec3(-150.0f, -235.0f, 175.0f), 1);
+    cout << "Loaded building 9." << endl;
     Building building10(glm::vec3(-125.0f, -225.0f, 0.0f), 3, glm::vec3(50.0f, 200.0f, 100.0f));
-    // ^ it could be made better with loading only one building of each type and then coping it, instead of loading each builing separetly 
+    cout << "Loaded building 10." << endl;
+    // ^ it could be made muchbetter with loading only one building of each type and then coping it, instead of loading each builing separetly 
 
     // load skybox
     Skybox citySkybox;
+    cout << "Loaded skybox." << endl;
     
     // set buildings collisions
     Collision boxes[12];
@@ -143,6 +156,7 @@ int main() {
     boxes[9] = building8.building_col;
     boxes[10] = building9.building_col;
     boxes[11] = building10.building_col;
+    cout << "Loaded collisions." << endl;
 
     // platforms movement
     float boxPos1 = 0.0f; // current additional possition of the box
@@ -158,6 +172,7 @@ int main() {
     glUniform1i(glGetUniformLocation(lightingShader.ID, "value"), 0);
 
     // main loop
+    cout << "Everything is ready." << endl;
     while (!glfwWindowShouldClose(window)) {
 
         // moving boxes collisions setup

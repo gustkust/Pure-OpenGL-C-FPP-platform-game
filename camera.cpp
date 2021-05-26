@@ -118,7 +118,7 @@ void Camera::changeSensitivity(float newValue) {
 
 
 glm::mat4 Camera::getV() {
-	cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
+	// cout << pos.x << " " << 2 + jumpHeight << " " << pos.z << "\n";
 	
 	// lookAt with pos, pos + front, up
 	if (!crouch) return glm::lookAt(glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z), glm::vec3(pos.x, cameraHeight + jumpHeight, pos.z) + front, up);

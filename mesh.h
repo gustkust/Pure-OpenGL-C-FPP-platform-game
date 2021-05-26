@@ -26,7 +26,6 @@ struct Vertex {
 // each texture consists of id, type (used in lighting - diffuse, specularetc.) and path to it
 struct Texture {
     unsigned int id;
-    string type;
     string path;
 };
 
