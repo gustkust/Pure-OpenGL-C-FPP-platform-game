@@ -138,7 +138,7 @@ int main() {
     cout << "Loaded building 9." << endl;
     Building building10(glm::vec3(-125.0f, -225.0f, 0.0f), 3, glm::vec3(50.0f, 200.0f, 100.0f));
     cout << "Loaded building 10." << endl;
-    // ^ it could be made muchbetter with loading only one building of each type and then coping it, instead of loading each builing separetly 
+    // ^ it could be made much better with loading only one building of each type and then coping it, instead of loading each builing separetly 
 
     // load skybox
     Skybox citySkybox;
@@ -166,6 +166,8 @@ int main() {
     float boxPos2 = 0.0f; // current additional possition of the box
     float boxPosChange2 = 0.4f; // change of boxPos per frame
     float boxPosRange2 = 100.0f; // range of boxPos
+    // ^ it could be made better with boxPosChange being calculated with deltaTime
+
 
     // starting shader setup
     lightingShader.use();
