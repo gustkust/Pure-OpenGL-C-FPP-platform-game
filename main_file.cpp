@@ -171,7 +171,6 @@ int main() {
 
     // starting shader setup
     lightingShader.use();
-    glUniform1i(glGetUniformLocation(lightingShader.ID, "value"), 0);
 
     // main loop
     cout << "Everything is ready." << endl;

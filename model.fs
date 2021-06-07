@@ -16,7 +16,8 @@ uniform vec3 position[40];
 uniform vec3 viewPos;
 // ambient light color
 uniform vec3 ambient;
-uniform sampler2D value;
+// texture
+uniform sampler2D tex;
 
 
 void main() {    
@@ -26,7 +27,7 @@ void main() {
     vec3 viewDirection = normalize(viewPos - FragPos);
     
     // ambient calculation - ambient light color (we use grey) times texture color
-    vec3 result = ambient * vec3(texture(value, TexCoords));
+    vec3 result = ambient * vec3(texture(tex, TexCoords));
 
     // lights calculations
     for(int i = 0; i < 40; i++) {
@@ -51,8 +52,8 @@ void main() {
         float attenuation = 1.0 / (1.0f + 0.018f * distance + 0.001f * (distance * distance));
         
         // combining results - base power (color) times power (calculated dot product) times attentuation (> 1) times original color
-        vec3 diffuse = baseDiffusePower * diffusePower * attenuation * vec3(texture(value, TexCoords));
-        vec3 specular = baseSpecularPower * specularPower * attenuation * vec3(texture(value, TexCoords));
+        vec3 diffuse = baseDiffusePower * diffusePower * attenuation * vec3(texture(tex, TexCoords));
+        vec3 specular = baseSpecularPower * specularPower * attenuation * vec3(texture(tex, TexCoords));
 
         // summing results
         result += diffuse + specular;
