@@ -16,12 +16,12 @@
 
 
 // window size
-float SCR_WIDTH = 1024;
-float SCR_HEIGHT = 768;
+float windowWidth = 1024;
+float windowHeight = 768;
 
 // time
-float lastTime = 0.0;
-float deltaTime = 0.0;
+float lastTime = 0;
+float deltaTime = 0;
 
 // camera
 Camera myCam;
@@ -81,7 +81,7 @@ GLFWwindow* GLFWsetup() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // creating window
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Jumping on roofs!", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Jumping on roofs!", NULL, NULL);
 
     // setting context and callbacks
     glfwMakeContextCurrent(window);
@@ -200,7 +200,7 @@ int main() {
         glUniform3f(glGetUniformLocation(lightingShader.ID, "ambient"), ambientValue, ambientValue, ambientValue);
 
         // model, view and projection matrices setup
-        glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 6000.0f);
+        glm::mat4 projection = glm::perspective(3.14f * 50.0f/180.0f, (GLfloat)windowWidth / (GLfloat)windowHeight, 0.1f, 6000.0f);
         glm::mat4 view = myCam.getV();
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
